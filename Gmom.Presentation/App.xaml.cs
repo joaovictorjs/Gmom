@@ -18,6 +18,7 @@ public partial class App : Application
     public App()
     {
         DispatcherUnhandledException += HandleUnhandledExceptions;
+        ViewModelLocationProvider.SetDefaultViewModelFactory(_injector.Resolve);
     }
 
     protected override void OnStartup(StartupEventArgs e)
