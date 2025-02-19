@@ -5,6 +5,7 @@ using System.Windows.Threading;
 using Gmom.Domain.Constants;
 using Gmom.Domain.Interface;
 using Gmom.Presentation.DependencyInjection;
+using Gmom.Presentation.Views;
 
 namespace Gmom.Presentation;
 
@@ -24,6 +25,8 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        _injector.Resolve<SetupConnectionView>().Show();
     }
 
     private void HandleUnhandledExceptions(object sender, DispatcherUnhandledExceptionEventArgs e)
