@@ -1,0 +1,84 @@
+﻿<mah:MetroWindow
+    Height="500"
+    ResizeMode="NoResize"
+    Title="Configurar conexão"
+    Width="500"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d"
+    x:Class="Gmom.Presentation.Views.SetupConnectionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:Gmom.Presentation.Views"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button ToolTip="Rodar migrações pendentes">
+                <icons:Lucide Kind="RefreshCw" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <Grid Margin="32,0" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="16" />
+            <RowDefinition />
+            <RowDefinition Height="16" />
+            <RowDefinition />
+            <RowDefinition Height="16" />
+            <RowDefinition />
+            <RowDefinition Height="16" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBox
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="0"
+            mah:TextBoxHelper.Watermark="Endereço de conexão" />
+
+        <mah:NumericUpDown
+            Grid.Column="0"
+            Grid.Row="2"
+            Maximum="65535"
+            Minimum="1000"
+            mah:TextBoxHelper.Watermark="Porta" />
+
+        <TextBox
+            Grid.Column="2"
+            Grid.Row="2"
+            mah:TextBoxHelper.Watermark="Base de dados" />
+
+        <Separator
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="4" />
+
+        <TextBox
+            Grid.Column="0"
+            Grid.Row="6"
+            mah:TextBoxHelper.Watermark="Usuário" />
+
+        <PasswordBox
+            Grid.Column="2"
+            Grid.Row="6"
+            mah:TextBoxHelper.Watermark="Senha" />
+
+        <Button
+            Content="_Salvar"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="8"
+            IsDefault="True" />
+    </Grid>
+</mah:MetroWindow>

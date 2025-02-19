@@ -18,6 +18,7 @@ public partial class Injector
     private static void MakeRegistrations()
     {
         RegisterServices();
+        RegisterViews();
     }
 
     public object Resolve(Type type)
