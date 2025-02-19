@@ -24,8 +24,4 @@
       <ProjectReference Include="..\Gmom.Infrastructure\Gmom.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="ViewModels\" />
-    </ItemGroup>
-
 </Project>

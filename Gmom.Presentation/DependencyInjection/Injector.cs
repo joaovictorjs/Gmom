@@ -19,6 +19,7 @@ public partial class Injector
     {
         RegisterServices();
         RegisterViews();
+        RegisterViewModels();
     }
 
     public object Resolve(Type type)
