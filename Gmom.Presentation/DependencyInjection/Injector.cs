@@ -6,18 +6,18 @@ public partial class Injector
 {
     private static Injector? _injector;
     public static Injector Instance => _injector ??= new Injector();
-    private readonly ContainerBuilder _builder = new();
+    private static readonly ContainerBuilder Builder = new();
     private readonly IContainer _container;
 
     private Injector()
     {
         MakeRegistrations();
-        _container = _builder.Build();
+        _container = Builder.Build();
     }
 
     private static void MakeRegistrations()
     {
-        throw new NotImplementedException();
+        RegisterServices();
     }
 
     public object Resolve(Type type)
