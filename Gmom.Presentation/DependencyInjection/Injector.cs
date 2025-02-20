@@ -20,6 +20,8 @@ public partial class Injector
         RegisterServices();
         RegisterViews();
         RegisterViewModels();
+        RegisterStores();
+        RegisterFactories();
     }
 
     public object Resolve(Type type)
