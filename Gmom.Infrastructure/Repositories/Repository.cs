@@ -1,4 +1,5 @@
-﻿using Gmom.Domain.Interface;
+﻿using System.Linq.Expressions;
+using Gmom.Domain.Interface;
 using Gmom.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,5 +11,15 @@ public class Repository(IDbContextFactory<PostgresContext> pgFactory) : IReposit
     {
         await using var postgres = await pgFactory.CreateDbContextAsync();
         await postgres.Database.MigrateAsync();
+    }
+}
+
+public class Repository<T>(IDbContextFactory<PostgresContext> pgFactory) : IRepository<T>
+    where T : class, IEntity
+{
+    public async Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> predicate)
+    {
+        await using var postgres = await pgFactory.CreateDbContextAsync();
+        return await postgres.Set<T>().Where(predicate).ToListAsync();
     }
 }
