@@ -3,7 +3,7 @@ using Gmom.Domain.Interface;
 
 namespace Gmom.Infrastructure.Services;
 
-public class UserService(IRepository<UserEntity> repository) : IUserService
+public class UsersService(IRepository<UserEntity> repository) : IUsersService
 {
     public async Task<bool> HasUserAdmin()
     {

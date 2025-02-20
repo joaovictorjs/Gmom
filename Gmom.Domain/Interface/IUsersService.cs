@@ -1,6 +1,6 @@
 ﻿namespace Gmom.Domain.Interface;
 
-public interface IUserService
+public interface IUsersService
 {
     Task<bool> HasUserAdmin();
 }
