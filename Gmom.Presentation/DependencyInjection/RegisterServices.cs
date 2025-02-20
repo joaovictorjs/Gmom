@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Collections.Immutable;
+using Autofac;
 using Gmom.Domain.Interface;
 using Gmom.Infrastructure.Services;
 using Gmom.Presentation.Services;
@@ -12,5 +13,7 @@ public partial class Injector
         Builder.RegisterType<MessageBoxService>().As<IMessageBoxService>().SingleInstance();
 
         Builder.RegisterType<LoggerService>().As<ILoggerService>().SingleInstance();
+        
+        Builder.RegisterType<MigrationService>().As<IMigrationService>();
     }
 }
