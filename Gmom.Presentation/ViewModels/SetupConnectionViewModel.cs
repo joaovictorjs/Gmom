@@ -43,36 +43,20 @@ public class SetupConnectionViewModel : BindableBase
     }
 
     public AsyncDelegateCommand SaveCommand { get; }
-    public AsyncDelegateCommand RunMigrationsCommand { get; }
 
     public SetupConnectionViewModel()
     {
         SaveCommand = new AsyncDelegateCommand(Save, CanSave);
-        RunMigrationsCommand = new AsyncDelegateCommand(RunMigrations, CanRunMigrations);
     }
 
-    private bool CanRunMigrations()
-    {
-        return IsFormPopulated() && !IsLoading;
-    }
-
-    private Task RunMigrations()
-    {
-        throw new NotImplementedException();
-    }
 
     private bool CanSave()
     {
-        return IsFormPopulated() && !IsLoading;
-    }
-
-    private bool IsFormPopulated()
-    {
-        return !string.IsNullOrWhiteSpace(Host)
-            && !string.IsNullOrWhiteSpace(Port)
-            && !string.IsNullOrWhiteSpace(Database)
-            && !string.IsNullOrWhiteSpace(Username)
-            && !string.IsNullOrWhiteSpace(Password);
+         return !string.IsNullOrWhiteSpace(Host)
+                      && !string.IsNullOrWhiteSpace(Port)
+                      && !string.IsNullOrWhiteSpace(Database)
+                      && !string.IsNullOrWhiteSpace(Username)
+                      && !string.IsNullOrWhiteSpace(Password) && !IsLoading;
     }
 
     private Task Save()
@@ -83,7 +67,6 @@ public class SetupConnectionViewModel : BindableBase
     protected override bool SetProperty<T>(ref T storage, T value, string? propertyName = null)
     {
         SaveCommand.RaiseCanExecuteChanged();
-        RunMigrationsCommand.RaiseCanExecuteChanged();
         return base.SetProperty(ref storage, value, propertyName);
     }
 }

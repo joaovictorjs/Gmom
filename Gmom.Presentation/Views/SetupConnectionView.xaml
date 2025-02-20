@@ -16,15 +16,6 @@
     xmlns:prism="http://prismlibrary.com/"
     xmlns:shared="http://metro.mahapps.com/winfx/xaml/shared"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <mah:MetroWindow.RightWindowCommands>
-        <mah:WindowCommands>
-            <Button Command="{Binding RunMigrationsCommand}" ToolTip="Rodar migrações pendentes">
-                <icons:Lucide Kind="RefreshCw" />
-            </Button>
-        </mah:WindowCommands>
-    </mah:MetroWindow.RightWindowCommands>
-
     <Grid Margin="32,0" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition />
