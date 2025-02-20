@@ -1,10 +1,11 @@
-﻿using Gmom.Infrastructure.Stores;
+﻿using Gmom.Domain.Interface;
+using Gmom.Infrastructure.Stores;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
 namespace Gmom.Infrastructure.Contexts;
 
-public class PostgresContextFactory(PostgresConnectionStore connectionStore)
+public class PostgresContextFactory(IPostgresConnectionStore connectionStore)
     : IDbContextFactory<PostgresContext>
 {
     public PostgresContext CreateDbContext()
