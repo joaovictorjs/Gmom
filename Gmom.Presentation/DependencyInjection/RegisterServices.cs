@@ -15,5 +15,7 @@ public partial class Injector
         Builder.RegisterType<LoggerService>().As<ILoggerService>().SingleInstance();
         
         Builder.RegisterType<MigrationService>().As<IMigrationService>();
+        
+        Builder.RegisterType<UserService>().As<IUserService>();
     }
 }
