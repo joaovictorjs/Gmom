@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Gmom.Domain.Entities;
 using Gmom.Domain.Interface;
 using Gmom.Infrastructure.Repositories;
 
@@ -9,5 +10,7 @@ public partial class Injector
     private static void RegisterRepositories()
     {
         Builder.RegisterType<Repository>().As<IRepository>();
+
+        Builder.RegisterType<Repository<UserEntity>>().As<IRepository<UserEntity>>();
     }
 }
