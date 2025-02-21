@@ -7,7 +7,7 @@ public class MessageBoxService : IMessageBoxService
 {
     public void ShowError(string message)
     {
-        MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        MessageBox.Show(message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     public void ShowInformation(string message)
