@@ -10,4 +10,5 @@ public interface IRepository
 public interface IRepository<T>  where T : IEntity
 {
     Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> predicate);
+    int NextValueForSequence(string sequenceName);
 }

@@ -22,4 +22,10 @@ public class Repository<T>(IDbContextFactory<PostgresContext> pgFactory) : IRepo
         await using var postgres = await pgFactory.CreateDbContextAsync();
         return await postgres.Set<T>().Where(predicate).ToListAsync();
     }
+    
+    public int NextValueForSequence(string sequenceName)
+    {
+        using var ctx = pgFactory.CreateDbContext();
+        return ctx.Database.SqlQuery<int>($"SELECT NEXTVAL({sequenceName})").ToList().First();
+    }
 }
