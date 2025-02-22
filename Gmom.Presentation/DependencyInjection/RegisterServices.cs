@@ -22,5 +22,7 @@ public partial class Injector
             .RegisterType<WindowService<InsertOrUpdateUserView, InsertOrUpdateUserViewModel>>()
             .As<IWindowService<InsertOrUpdateUserView, InsertOrUpdateUserViewModel>>()
             .SingleInstance();
+        
+        Builder.RegisterType<UserService>().As<IUserService>();
     }
 }
