@@ -4,16 +4,12 @@ using Gmom.Domain.Constants;
 using Gmom.Domain.Entities;
 using Gmom.Domain.Interface;
 using Gmom.Domain.Models;
+using InvalidOperationException = System.InvalidOperationException;
 
 namespace Gmom.Infrastructure.Services;
 
 public class UserService(IRepository<UserEntity> repository) : IUserService
 {
-    public async Task<bool> HasAdmin()
-    {
-        return (await repository.WhereAsync(it => it.IsAdmin)).Any();
-    }
-
     public int GetNextId()
     {
         return repository.NextValueForSequence(SequenceNames.Users);
@@ -41,5 +37,22 @@ public class UserService(IRepository<UserEntity> repository) : IUserService
     public async Task<bool> Delete(UserModel user)
     {
         return await repository.DeleteAsync((UserEntity)user.ToEntity()) > 0;
+    }
+
+    public async Task<UserModel> Login(string name, string password)
+    {
+        var user = (await repository.WhereAsync(it => it.Name == name)).FirstOrDefault();
+
+        if (user == null)
+        {
+            throw new InvalidOperationException($"O usuário {name} não foi encontrado!");
+        }
+
+        if (toMD5(password) != user.Password)
+        {
+            throw new InvalidOperationException($"Senha incorreta!");
+        }
+
+        return (UserModel)user.ToModel();
     }
 }
