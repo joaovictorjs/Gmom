@@ -25,8 +25,19 @@ public class WindowService<TWindow, TViewModel>(IComponentContext componentConte
         return this;
     }
 
+    public IWindowService<TWindow, TViewModel> Create()
+    {
+        _window = componentContext.Resolve<TWindow>();
+        return this;
+    }
+
     public bool? ShowDialog()
     {
         return _window?.ShowDialog();
+    }
+
+    public void Show()
+    {
+        _window?.Show();
     }
 }

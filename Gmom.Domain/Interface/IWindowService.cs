@@ -5,6 +5,7 @@ public interface IWindowService<TWindow, TViewModel>
     where TViewModel : class
 {
     IWindowService<TWindow, TViewModel> Create(params KeyValuePair<string, object?>[] namedParameters);
-
+    IWindowService<TWindow, TViewModel> Create();
     bool? ShowDialog();
+    void Show();
 }
