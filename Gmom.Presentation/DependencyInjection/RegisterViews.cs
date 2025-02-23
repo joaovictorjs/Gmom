@@ -10,5 +10,7 @@ public partial class Injector
         Builder.RegisterType<SetupConnectionView>();
         
         Builder.RegisterType<LoginView>();
+        
+        Builder.RegisterType<MainView>();
     }
 }

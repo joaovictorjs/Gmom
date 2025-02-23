@@ -29,5 +29,9 @@ public partial class Injector
         Builder
             .RegisterType<WindowService<SetupConnectionView, SetupConnectionViewModel>>()
             .As<IWindowService<SetupConnectionView, SetupConnectionViewModel>>();
+        
+        Builder
+            .RegisterType<WindowService<MainView, MainViewModel>>()
+            .As<IWindowService<MainView, MainViewModel>>();
     }
 }
