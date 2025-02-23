@@ -18,11 +18,6 @@ public partial class Injector
 
         Builder.RegisterType<MigrationService>().As<IMigrationService>();
 
-        Builder
-            .RegisterType<WindowService<InsertOrUpdateUserView, InsertOrUpdateUserViewModel>>()
-            .As<IWindowService<InsertOrUpdateUserView, InsertOrUpdateUserViewModel>>()
-            .SingleInstance();
-        
         Builder.RegisterType<UserService>().As<IUserService>();
     }
 }

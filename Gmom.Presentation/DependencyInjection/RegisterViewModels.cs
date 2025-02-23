@@ -8,7 +8,5 @@ public partial class Injector
     private static void RegisterViewModels()
     {
         Builder.RegisterType<SetupConnectionViewModel>();
-
-        Builder.RegisterType<InsertOrUpdateUserViewModel>();
     }
 }
