@@ -19,19 +19,9 @@ public class UserService(IRepository<UserEntity> repository) : IUserService
     {
         user.Password = toMD5(user.Password);
 
-        if (insert)
-        {
-            return await repository.InsertAsync((UserEntity)user.ToEntity()) > 0;
-        }
+        if (insert) return await repository.InsertAsync((UserEntity)user.ToEntity()) > 0;
 
         return await repository.UpdateAsync((UserEntity)user.ToEntity()) > 0;
-    }
-
-    private string toMD5(string content)
-    {
-        var encoded = Encoding.UTF8.GetBytes(content);
-        var hash = MD5.HashData(encoded);
-        return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
     }
 
     public async Task<bool> Delete(UserModel user)
@@ -43,16 +33,17 @@ public class UserService(IRepository<UserEntity> repository) : IUserService
     {
         var user = (await repository.WhereAsync(it => it.Name == name)).FirstOrDefault();
 
-        if (user == null)
-        {
-            throw new InvalidOperationException($"O usuário {name} não foi encontrado!");
-        }
+        if (user == null) throw new InvalidOperationException($"O usuário {name} não foi encontrado!");
 
-        if (toMD5(password) != user.Password)
-        {
-            throw new InvalidOperationException($"Senha incorreta!");
-        }
+        if (toMD5(password) != user.Password) throw new InvalidOperationException("Senha incorreta!");
 
         return (UserModel)user.ToModel();
+    }
+
+    private string toMD5(string content)
+    {
+        var encoded = Encoding.UTF8.GetBytes(content);
+        var hash = MD5.HashData(encoded);
+        return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
     }
 }

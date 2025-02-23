@@ -17,7 +17,7 @@ public class UserModel : IModel
             Id = Id,
             Name = Name,
             Password = Password,
-            IsAdmin = IsAdmin,
+            IsAdmin = IsAdmin
         };
     }
 }

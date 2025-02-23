@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Threading;
 using Gmom.Domain.Constants;
@@ -11,7 +9,7 @@ using Gmom.Presentation.Views;
 namespace Gmom.Presentation;
 
 /// <summary>
-/// Interaction logic for App.xaml
+///     Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
 {

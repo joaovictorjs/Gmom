@@ -4,5 +4,5 @@ namespace Gmom.Domain.Interface;
 
 public interface IPostgresConnectionStore
 {
-     PostgresConnectionModel Value { get; set; } 
+    PostgresConnectionModel Value { get; set; }
 }

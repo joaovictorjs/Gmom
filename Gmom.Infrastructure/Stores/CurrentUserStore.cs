@@ -5,7 +5,7 @@ namespace Gmom.Infrastructure.Stores;
 
 public class CurrentUserStore : ICurrentUserStore
 {
-    public UserModel Value { get; set; } = new UserModel
+    public UserModel Value { get; set; } = new()
     {
         Id = 0,
         Name = string.Empty,

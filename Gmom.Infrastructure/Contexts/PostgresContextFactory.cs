@@ -1,5 +1,4 @@
 ﻿using Gmom.Domain.Interface;
-using Gmom.Infrastructure.Stores;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -17,7 +16,7 @@ public class PostgresContextFactory(IPostgresConnectionStore connectionStore)
             Port = int.Parse(connectionStore.Value.Port),
             Database = connectionStore.Value.Database,
             Username = connectionStore.Value.Username,
-            Password = connectionStore.Value.Password,
+            Password = connectionStore.Value.Password
         };
         optionsBuilder.UseNpgsql(pgBuilder.ToString(), pg => pg.SetPostgresVersion(9, 5));
         return new PostgresContext(optionsBuilder.Options);

@@ -2,5 +2,5 @@
 
 public interface IEntity
 {
-    IModel ToModel();   
+    IModel ToModel();
 }

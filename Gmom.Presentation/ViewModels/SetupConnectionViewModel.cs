@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Gmom.Domain.Interface;
+﻿using Gmom.Domain.Interface;
 using Gmom.Domain.Models;
 using Gmom.Infrastructure.Exceptions;
 using Gmom.Presentation.Views;
@@ -8,53 +7,18 @@ namespace Gmom.Presentation.ViewModels;
 
 public class SetupConnectionViewModel : BindableBase, IClosableWindow
 {
-    private readonly IMigrationService _migrationService;
     private readonly IConnectionFileService _connectionFileService;
     private readonly IPostgresConnectionStore _connectionStore;
     private readonly IMessageBoxService _messageBoxService;
+    private readonly IMigrationService _migrationService;
     private readonly IWindowService<LoginView, LoginViewModel> _windowService;
+    private string _database;
 
     private string _host;
-    private string _port;
-    private string _database;
-    private string _username;
-    private string _password;
     private bool _isLoading;
-
-    public string Host
-    {
-        get => _host;
-        set => SetProperty(ref _host, value);
-    }
-    public string Port
-    {
-        get => _port;
-        set => SetProperty(ref _port, value);
-    }
-    public string Database
-    {
-        get => _database;
-        set => SetProperty(ref _database, value);
-    }
-    public string Username
-    {
-        get => _username;
-        set => SetProperty(ref _username, value);
-    }
-    public string Password
-    {
-        get => _password;
-        set => SetProperty(ref _password, value);
-    }
-    public bool IsLoading
-    {
-        get => _isLoading;
-        set => SetProperty(ref _isLoading, value);
-    }
-
-    public bool IsFormVisible => !IsLoading;
-
-    public AsyncDelegateCommand SaveCommand { get; }
+    private string _password;
+    private string _port;
+    private string _username;
 
     public SetupConnectionViewModel(
         IMessageBoxService messageBoxService,
@@ -75,18 +39,60 @@ public class SetupConnectionViewModel : BindableBase, IClosableWindow
         _database = _connectionStore.Value.Database;
         _username = _connectionStore.Value.Username;
         _password = _connectionStore.Value.Password;
-        
+
         SaveCommand = new AsyncDelegateCommand(Save, CanSave);
     }
+
+    public string Host
+    {
+        get => _host;
+        set => SetProperty(ref _host, value);
+    }
+
+    public string Port
+    {
+        get => _port;
+        set => SetProperty(ref _port, value);
+    }
+
+    public string Database
+    {
+        get => _database;
+        set => SetProperty(ref _database, value);
+    }
+
+    public string Username
+    {
+        get => _username;
+        set => SetProperty(ref _username, value);
+    }
+
+    public string Password
+    {
+        get => _password;
+        set => SetProperty(ref _password, value);
+    }
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
+
+    public bool IsFormVisible => !IsLoading;
+
+    public AsyncDelegateCommand SaveCommand { get; }
+
+    public Action? Close { get; set; }
 
     private bool CanSave()
     {
         return !string.IsNullOrWhiteSpace(Host)
-            && !string.IsNullOrWhiteSpace(Port)
-            && !string.IsNullOrWhiteSpace(Database)
-            && !string.IsNullOrWhiteSpace(Username)
-            && !string.IsNullOrWhiteSpace(Password)
-            && !IsLoading;
+               && !string.IsNullOrWhiteSpace(Port)
+               && !string.IsNullOrWhiteSpace(Database)
+               && !string.IsNullOrWhiteSpace(Username)
+               && !string.IsNullOrWhiteSpace(Password)
+               && !IsLoading;
     }
 
     private async Task Save()
@@ -101,12 +107,12 @@ public class SetupConnectionViewModel : BindableBase, IClosableWindow
                 Port = Port,
                 Database = Database,
                 Username = Username,
-                Password = Password,
+                Password = Password
             };
 
             await _migrationService.MigrateAsync();
             _connectionFileService.Write();
-            
+
             _windowService.Create().Show();
             Close?.Invoke();
         }
@@ -125,6 +131,4 @@ public class SetupConnectionViewModel : BindableBase, IClosableWindow
         SaveCommand.RaiseCanExecuteChanged();
         return base.SetProperty(ref storage, value, propertyName);
     }
-
-    public Action? Close { get; set; }
 }

@@ -5,7 +5,6 @@ namespace Gmom.Presentation.DependencyInjection;
 public partial class Injector
 {
     private static Injector? _injector;
-    public static Injector Instance => _injector ??= new Injector();
     private static readonly ContainerBuilder Builder = new();
     private readonly IContainer _container;
 
@@ -14,6 +13,8 @@ public partial class Injector
         MakeRegistrations();
         _container = Builder.Build();
     }
+
+    public static Injector Instance => _injector ??= new Injector();
 
     private static void MakeRegistrations()
     {

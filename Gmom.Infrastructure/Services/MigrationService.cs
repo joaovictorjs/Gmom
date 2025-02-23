@@ -2,7 +2,7 @@
 
 namespace Gmom.Infrastructure.Services;
 
-public class MigrationService(IRepository repository):IMigrationService
+public class MigrationService(IRepository repository) : IMigrationService
 {
     public async Task MigrateAsync()
     {

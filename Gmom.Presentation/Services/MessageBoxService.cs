@@ -23,10 +23,10 @@ public class MessageBoxService : IMessageBoxService
     public bool ShowConfirmation(string message)
     {
         return MessageBox.Show(
-                message,
-                "Confirmação",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            ) == MessageBoxResult.Yes;
+            message,
+            "Confirmação",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question
+        ) == MessageBoxResult.Yes;
     }
 }

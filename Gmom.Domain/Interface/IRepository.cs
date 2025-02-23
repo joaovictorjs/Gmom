@@ -7,7 +7,7 @@ public interface IRepository
     Task MigrateAsync();
 }
 
-public interface IRepository<T>  where T : IEntity
+public interface IRepository<T> where T : IEntity
 {
     Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> predicate);
     int NextValueForSequence(string sequenceName);
@@ -15,5 +15,4 @@ public interface IRepository<T>  where T : IEntity
     Task<int> UpdateAsync(T entity);
     Task<int> DeleteAsync(T entity);
     Task<List<T>> ToList();
-
 }

@@ -12,6 +12,6 @@ public class PostgresConnectionStore : IPostgresConnectionStore
             Port = string.Empty,
             Database = string.Empty,
             Username = string.Empty,
-            Password = string.Empty,
+            Password = string.Empty
         };
 }

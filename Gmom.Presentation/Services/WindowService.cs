@@ -9,8 +9,8 @@ public class WindowService<TWindow, TViewModel>(IComponentContext componentConte
     where TWindow : Window
     where TViewModel : class
 {
-    private TWindow? _window;
     private TViewModel? _viewModel;
+    private TWindow? _window;
 
     public IWindowService<TWindow, TViewModel> Create(
         params KeyValuePair<string, object?>[] namedParameters

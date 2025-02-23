@@ -8,17 +8,13 @@ namespace Gmom.Domain.Entities;
 [Table("usuarios")]
 public class UserEntity : IEntity
 {
-    [Column("id"), Key]
-    public required int Id { get; set; }
+    [Column("id")] [Key] public required int Id { get; set; }
 
-    [Column("nome")]
-    public required string Name { get; set; }
+    [Column("nome")] public required string Name { get; set; }
 
-    [Column("senha")]
-    public required string Password { get; set; }
+    [Column("senha")] public required string Password { get; set; }
 
-    [Column("administrador")]
-    public required bool IsAdmin { get; set; }
+    [Column("administrador")] public required bool IsAdmin { get; set; }
 
     public IModel ToModel()
     {
@@ -27,7 +23,7 @@ public class UserEntity : IEntity
             Id = Id,
             Name = Name,
             Password = Password,
-            IsAdmin = IsAdmin,
+            IsAdmin = IsAdmin
         };
     }
 }

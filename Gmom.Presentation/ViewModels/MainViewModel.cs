@@ -1,3 +1,5 @@
 ﻿namespace Gmom.Presentation.ViewModels;
 
-public class MainViewModel : BindableBase { }
+public class MainViewModel : BindableBase
+{
+}

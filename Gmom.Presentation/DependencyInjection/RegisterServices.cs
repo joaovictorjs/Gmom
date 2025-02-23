@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using Autofac;
+﻿using Autofac;
 using Gmom.Domain.Interface;
 using Gmom.Infrastructure.Services;
 using Gmom.Presentation.Services;
@@ -29,7 +28,7 @@ public partial class Injector
         Builder
             .RegisterType<WindowService<SetupConnectionView, SetupConnectionViewModel>>()
             .As<IWindowService<SetupConnectionView, SetupConnectionViewModel>>();
-        
+
         Builder
             .RegisterType<WindowService<MainView, MainViewModel>>()
             .As<IWindowService<MainView, MainViewModel>>();

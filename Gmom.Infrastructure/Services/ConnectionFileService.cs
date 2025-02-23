@@ -17,18 +17,10 @@ public class ConnectionFileService(IPostgresConnectionStore connectionStore)
             { "Porta", connectionStore.Value.Port },
             { "Base de dados", connectionStore.Value.Database },
             { "Usuário", Protect(connectionStore.Value.Username) },
-            { "Senha", Protect(connectionStore.Value.Password) },
+            { "Senha", Protect(connectionStore.Value.Password) }
         };
 
         File.WriteAllLines(Filenames.Connection, data.Select(it => $"{it.Key}={it.Value}"));
-    }
-
-    [SuppressMessage("Interoperability", "CA1416:Validar a compatibilidade da plataforma")]
-    private static string Protect(string content)
-    {
-        var encoded = Encoding.UTF8.GetBytes(content);
-        var hash = ProtectedData.Protect(encoded, null, DataProtectionScope.CurrentUser);
-        return Convert.ToBase64String(hash);
     }
 
     public void Read()
@@ -43,6 +35,14 @@ public class ConnectionFileService(IPostgresConnectionStore connectionStore)
         connectionStore.Value.Database = data["Base de dados"];
         connectionStore.Value.Username = Unprotect(data["Usuário"]);
         connectionStore.Value.Password = Unprotect(data["Senha"]);
+    }
+
+    [SuppressMessage("Interoperability", "CA1416:Validar a compatibilidade da plataforma")]
+    private static string Protect(string content)
+    {
+        var encoded = Encoding.UTF8.GetBytes(content);
+        var hash = ProtectedData.Protect(encoded, null, DataProtectionScope.CurrentUser);
+        return Convert.ToBase64String(hash);
     }
 
     [SuppressMessage("Interoperability", "CA1416:Validar a compatibilidade da plataforma")]

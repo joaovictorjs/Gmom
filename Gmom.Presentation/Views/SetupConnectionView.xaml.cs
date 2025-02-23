@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Gmom.Domain.Interface;
+﻿using Gmom.Domain.Interface;
 using MahApps.Metro.Controls;
 
 namespace Gmom.Presentation.Views;
@@ -15,9 +14,6 @@ public partial class SetupConnectionView : MetroWindow
     {
         base.OnInitialized(e);
 
-        if (DataContext is IClosableWindow closableWindow)
-        {
-            closableWindow.Close = Close;
-        }
+        if (DataContext is IClosableWindow closableWindow) closableWindow.Close = Close;
     }
 }

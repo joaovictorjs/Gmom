@@ -9,19 +9,19 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Autofac" Version="8.2.0" />
-      <PackageReference Include="MahApps.Metro" Version="2.4.10" />
-      <PackageReference Include="MahApps.Metro.IconPacks.Lucide" Version="5.1.0" />
-      <PackageReference Include="Prism.Wpf" Version="9.0.537" />
+        <PackageReference Include="Autofac" Version="8.2.0"/>
+        <PackageReference Include="MahApps.Metro" Version="2.4.10"/>
+        <PackageReference Include="MahApps.Metro.IconPacks.Lucide" Version="5.1.0"/>
+        <PackageReference Include="Prism.Wpf" Version="9.0.537"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Gmom.Domain\Gmom.Domain.csproj" />
-      <ProjectReference Include="..\Gmom.Infrastructure\Gmom.Infrastructure.csproj" />
+        <ProjectReference Include="..\Gmom.Domain\Gmom.Domain.csproj"/>
+        <ProjectReference Include="..\Gmom.Infrastructure\Gmom.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

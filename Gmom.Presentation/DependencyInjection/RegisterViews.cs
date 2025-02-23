@@ -8,9 +8,9 @@ public partial class Injector
     private static void RegisterViews()
     {
         Builder.RegisterType<SetupConnectionView>();
-        
+
         Builder.RegisterType<LoginView>();
-        
+
         Builder.RegisterType<MainView>();
     }
 }
