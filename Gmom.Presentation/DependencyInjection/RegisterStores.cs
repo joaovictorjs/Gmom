@@ -12,5 +12,7 @@ public partial class Injector
             .RegisterType<PostgresConnectionStore>()
             .As<IPostgresConnectionStore>()
             .SingleInstance();
+
+        Builder.RegisterType<CurrentUserStore>().As<ICurrentUserStore>().SingleInstance();
     }
 }
