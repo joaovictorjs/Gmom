@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Threading;
 using Gmom.Domain.Constants;
@@ -26,7 +27,11 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        _injector.Resolve<SetupConnectionView>().Show();
+        Window initialWindow = File.Exists(Filenames.Connection)
+            ? _injector.Resolve<LoginView>()
+            : _injector.Resolve<SetupConnectionView>();
+
+        initialWindow.Show();
     }
 
     private void HandleUnhandledExceptions(object sender, DispatcherUnhandledExceptionEventArgs e)
