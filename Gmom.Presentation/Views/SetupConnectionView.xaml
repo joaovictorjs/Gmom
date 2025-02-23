@@ -1,4 +1,5 @@
 ﻿<mah:MetroWindow
+    FocusManager.FocusedElement="{Binding ElementName=AddressField}"
     Height="500"
     ResizeMode="NoResize"
     Title="Configurar conexão"
@@ -40,6 +41,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Grid.Row="0"
+                Name="AddressField"
                 Text="{Binding Host, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 mah:TextBoxHelper.Watermark="Endereço de conexão" />
 

@@ -1,4 +1,5 @@
 ﻿<mah:MetroWindow
+    FocusManager.FocusedElement="{Binding ElementName=NameField}"
     Height="500"
     ResizeMode="NoResize"
     Title="Entrar"
@@ -35,6 +36,7 @@
 
         <TextBox
             Grid.Row="0"
+            Name="NameField"
             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
             mah:TextBoxHelper.Watermark="Usuário" />
 
