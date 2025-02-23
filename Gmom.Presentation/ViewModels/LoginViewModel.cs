@@ -1,20 +1,27 @@
 ﻿using Gmom.Domain.Interface;
+using Gmom.Infrastructure.Exceptions;
 using Gmom.Presentation.Views;
 
 namespace Gmom.Presentation.ViewModels;
 
 public class LoginViewModel : BindableBase, IClosableWindow
 {
+    private readonly IUserService _userService;
     private readonly IMessageBoxService _messageBoxService;
-    private readonly IWindowService<SetupConnectionView, SetupConnectionViewModel> _windowService;
+    private readonly IWindowService<
+        SetupConnectionView,
+        SetupConnectionViewModel
+    > _connectionViewService;
+    private readonly IWindowService<MainView, MainViewModel> _mainViewService;
+    private readonly ICurrentUserStore _currentUserStore;
 
     private string _name = string.Empty;
     private string _password = string.Empty;
 
     public string Name
     {
-        get => _name;
-        set => SetProperty(ref _name, value);
+        get => _name.ToUpper();
+        set => SetProperty(ref _name, value.ToUpper());
     }
     public string Password
     {
@@ -28,11 +35,17 @@ public class LoginViewModel : BindableBase, IClosableWindow
     public LoginViewModel(
         IConnectionFileService connectionFileService,
         IMessageBoxService messageBoxService,
-        IWindowService<SetupConnectionView, SetupConnectionViewModel> windowService
+        IWindowService<SetupConnectionView, SetupConnectionViewModel> connectionViewService,
+        IUserService userService,
+        IWindowService<MainView, MainViewModel> mainViewService,
+        ICurrentUserStore currentUserStore
     )
     {
         _messageBoxService = messageBoxService;
-        _windowService = windowService;
+        _connectionViewService = connectionViewService;
+        _userService = userService;
+        _mainViewService = mainViewService;
+        _currentUserStore = currentUserStore;
 
         connectionFileService.Read();
 
@@ -45,14 +58,23 @@ public class LoginViewModel : BindableBase, IClosableWindow
         return !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Password);
     }
 
-    private Task Login()
+    private async Task Login()
     {
-        throw new NotImplementedException();
+        try
+        {
+            _currentUserStore.Value = await _userService.Login(Name, Password);
+            _mainViewService.Create().Show();
+            Close?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            ex.UseGlobalHandle(_messageBoxService.ShowError);
+        }
     }
 
     private void OpenSetupDatabaseView()
     {
-        _windowService.Create().Show();
+        _connectionViewService.Create().Show();
         Close?.Invoke();
     }
 

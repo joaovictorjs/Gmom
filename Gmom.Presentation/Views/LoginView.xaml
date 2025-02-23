@@ -46,7 +46,8 @@
 
         <Button
             Command="{Binding LoginCommand}"
-            Content="Entrar"
-            Grid.Row="4" />
+            Content="_Entrar"
+            Grid.Row="4"
+            IsDefault="True" />
     </Grid>
 </mah:MetroWindow>
