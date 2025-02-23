@@ -1,5 +1,5 @@
 ﻿<mah:MetroWindow
-    MinHeight="600"
+    MinHeight="550"
     MinWidth="800"
     Title="Gmom"
     WindowStartupLocation="CenterScreen"
@@ -13,5 +13,29 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid />
+    <Grid>
+        <Grid />
+
+        <StatusBar VerticalAlignment="Bottom">
+            <StatusBar.Resources>
+                <Style TargetType="StatusBarItem">
+                    <Setter Property="Margin" Value="12,4" />
+                </Style>
+            </StatusBar.Resources>
+
+            <StatusBarItem Content="{Binding Host}" />
+            <Separator />
+            <StatusBarItem Content="{Binding Port}" />
+            <Separator />
+            <StatusBarItem Content="{Binding Database}" />
+            <Separator />
+            <StatusBarItem Content="{Binding Name}" />
+            <Separator Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <StatusBarItem Content="Administrador" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </StatusBar>
+    </Grid>
+
+    <mah:MetroWindow.InputBindings>
+        <KeyBinding Command="{Binding LogoutCommand}" Key="F12" />
+    </mah:MetroWindow.InputBindings>
 </mah:MetroWindow>
