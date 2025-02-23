@@ -21,5 +21,13 @@ public partial class Injector
         Builder.RegisterType<UserService>().As<IUserService>();
 
         Builder.RegisterType<ConnectionFileService>().As<IConnectionFileService>();
+
+        Builder
+            .RegisterType<WindowService<LoginView, LoginViewModel>>()
+            .As<IWindowService<LoginView, LoginViewModel>>();
+
+        Builder
+            .RegisterType<WindowService<SetupConnectionView, SetupConnectionViewModel>>()
+            .As<IWindowService<SetupConnectionView, SetupConnectionViewModel>>();
     }
 }
