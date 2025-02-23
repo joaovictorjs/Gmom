@@ -1,3 +1,6 @@
 ﻿namespace Gmom.Domain.Interface;
 
-public interface IEntity { }
+public interface IEntity
+{
+    IModel ToModel();   
+}
