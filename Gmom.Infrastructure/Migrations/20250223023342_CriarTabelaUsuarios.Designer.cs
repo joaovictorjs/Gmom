@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Gmom.Infrastructure.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    [Migration("20250220204905_CriarTabelaUsuarios")]
+    [Migration("20250223023342_CriarTabelaUsuarios")]
     partial class CriarTabelaUsuarios
     {
         /// <inheritdoc />
@@ -49,7 +49,19 @@ namespace Gmom.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsAdmin = true,
+                            Name = "admin",
+                            Password = "21232f297a57a5a743894a0e4a801fc3"
+                        });
                 });
 #pragma warning restore 612, 618
         }

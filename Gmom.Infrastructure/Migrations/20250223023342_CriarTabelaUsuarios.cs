@@ -25,6 +25,17 @@ namespace Gmom.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_usuarios", x => x.id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "usuarios",
+                columns: new[] { "id", "administrador", "nome", "senha" },
+                values: new object[] { 1, true, "admin", "21232f297a57a5a743894a0e4a801fc3" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuarios_nome",
+                table: "usuarios",
+                column: "nome",
+                unique: true);
         }
 
         /// <inheritdoc />
