@@ -1,7 +1,7 @@
 ﻿<mah:MetroWindow
-    MinHeight="550"
-    MinWidth="800"
+    Height="720"
     Title="Gmom"
+    Width="1280"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     mc:Ignorable="d"
@@ -9,31 +9,19 @@
     x:Class="Gmom.Presentation.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Gmom.Presentation.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:presentation="clr-namespace:Gmom.Presentation"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
-        <Grid />
+    <Viewbox Stretch="Fill">
+        <Grid Height="720" Width="1280">
+            <Grid Height="688" VerticalAlignment="Top" />
 
-        <StatusBar VerticalAlignment="Bottom">
-            <StatusBar.Resources>
-                <Style TargetType="StatusBarItem">
-                    <Setter Property="Margin" Value="12,4" />
-                </Style>
-            </StatusBar.Resources>
-
-            <StatusBarItem Content="{Binding Host}" />
-            <Separator />
-            <StatusBarItem Content="{Binding Port}" />
-            <Separator />
-            <StatusBarItem Content="{Binding Database}" />
-            <Separator />
-            <StatusBarItem Content="{Binding Name}" />
-            <Separator Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <StatusBarItem Content="Administrador" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" />
-        </StatusBar>
-    </Grid>
+            <local:SessionView Height="32" VerticalAlignment="Bottom" />
+        </Grid>
+    </Viewbox>
 
     <mah:MetroWindow.InputBindings>
         <KeyBinding Command="{Binding LogoutCommand}" Key="F12" />

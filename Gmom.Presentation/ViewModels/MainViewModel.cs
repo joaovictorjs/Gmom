@@ -9,30 +9,17 @@ namespace Gmom.Presentation.ViewModels;
 public class MainViewModel : BindableBase, IClosableWindow
 {
     private readonly ICurrentUserStore _currentUserStore;
-    private IWindowService<LoginView, LoginViewModel> _loginViewService;
-
-    public string Host { get; }
-    public string Port { get; }
-    public string Database { get; }
-    public string Name { get; }
-    public bool IsAdmin { get; }
+    private readonly IWindowService<LoginView, LoginViewModel> _loginViewService;
 
     public DelegateCommand LogoutCommand { get; }
 
     public MainViewModel(
         ICurrentUserStore currentUserStore,
-        IPostgresConnectionStore connectionStore,
         IWindowService<LoginView, LoginViewModel> loginViewService
     )
     {
         _currentUserStore = currentUserStore;
         _loginViewService = loginViewService;
-
-        Host = connectionStore.Value.Host;
-        Port = connectionStore.Value.Port;
-        Database = connectionStore.Value.Database;
-        Name = currentUserStore.Value.Name;
-        IsAdmin = currentUserStore.Value.IsAdmin;
 
         LogoutCommand = new DelegateCommand(Logout);
     }

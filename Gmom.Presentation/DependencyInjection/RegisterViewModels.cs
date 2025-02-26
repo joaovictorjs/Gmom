@@ -12,5 +12,7 @@ public partial class Injector
         Builder.RegisterType<LoginViewModel>();
 
         Builder.RegisterType<MainViewModel>();
+        
+        Builder.RegisterType<SessionViewModel>();
     }
 }
