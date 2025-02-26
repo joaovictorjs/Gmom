@@ -17,7 +17,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Viewbox Stretch="Fill">
         <Grid Height="720" Width="1280">
-            <Grid Height="688" VerticalAlignment="Top" />
+            <StackPanel
+                Height="688"
+                Orientation="Horizontal"
+                VerticalAlignment="Top">
+                <local:LeftView Width="448" />
+                <local:RightView Width="832" />
+            </StackPanel>
 
             <local:SessionView Height="32" VerticalAlignment="Bottom" />
         </Grid>
