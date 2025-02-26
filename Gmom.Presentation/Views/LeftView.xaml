@@ -1,4 +1,17 @@
 ﻿<UserControl
     x:Class="Gmom.Presentation.Views.LeftView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" />
+    xmlns:presentation="clr-namespace:Gmom.Presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <presentation:TilesView Grid.Row="0" />
+
+        <presentation:ProductPanel Grid.Row="2" />
+    </Grid>
+</UserControl>
