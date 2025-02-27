@@ -24,6 +24,8 @@ public partial class Injector
         RegisterStores();
         RegisterFactories();
         RegisterRepositories();
+
+        Builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
     }
 
     public object Resolve(Type type)
