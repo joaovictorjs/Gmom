@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Gmom.Presentation.ProductPanel"
+    x:Class="Gmom.Presentation.Views.ProductPanelView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
