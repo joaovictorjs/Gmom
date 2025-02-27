@@ -1,0 +1,65 @@
+﻿<mah:Flyout
+    x:Class="Gmom.Presentation.Views.ProductsFlyoutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <mah:Flyout.InputBindings>
+        <KeyBinding Key="F5" />
+        <KeyBinding Key="F6" />
+        <KeyBinding Key="F7" />
+        <KeyBinding Key="Insert" />
+        <KeyBinding Key="Delete" />
+        <KeyBinding Key="Insert" Modifiers="Alt" />
+    </mah:Flyout.InputBindings>
+
+    <Viewbox Stretch="Fill">
+        <Grid
+            Height="720"
+            Margin="16"
+            VerticalAlignment="Top"
+            Width="640">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0" mah:TextBoxHelper.Watermark="Pesquisar..." />
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="Margin" Value="0,0,16,0" />
+                        <Setter Property="IsTabStop" Value="False" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <RadioButton Content="Por Nome [F5]" />
+                <RadioButton Content="Por Código [F6]" />
+                <RadioButton Content="Por Código de barras [F7]" />
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="6"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style BasedOn="{StaticResource MahApps.Styles.Button}" TargetType="Button">
+                        <Setter Property="Margin" Value="16,0,0,0" />
+                        <Setter Property="IsTabStop" Value="False" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button Content="_Inserir" />
+                <Button Content="_Editar" />
+                <Button Content="_Deletar" />
+            </StackPanel>
+        </Grid>
+    </Viewbox>
+</mah:Flyout>
