@@ -14,5 +14,7 @@ public partial class Injector
         Builder.RegisterType<MainViewModel>();
         
         Builder.RegisterType<SessionViewModel>();
+        
+        Builder.RegisterType<TilesViewModel>();
     }
 }
