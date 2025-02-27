@@ -1,4 +1,4 @@
-﻿namespace Gmom.Presentation;
+﻿namespace Gmom.Presentation.Views;
 
 public partial class TilesView
 {

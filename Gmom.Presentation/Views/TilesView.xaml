@@ -1,9 +1,32 @@
 ﻿<UserControl
-    x:Class="Gmom.Presentation.TilesView"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    x:Class="Gmom.Presentation.Views.TilesView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:hotkey="clr-namespace:NHotkey.Wpf;assembly=NHotkey.Wpf"
     xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:prism="http://prismlibrary.com/"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.InputBindings>
+        <KeyBinding
+            Command="{Binding OpenFlyoutCommand}"
+            CommandParameter="products"
+            Key="F1"
+            hotkey:HotkeyManager.RegisterGlobalHotkey="True" />
+
+        <KeyBinding
+            Command="{Binding OpenFlyoutCommand}"
+            CommandParameter="customers"
+            Key="F2"
+            hotkey:HotkeyManager.RegisterGlobalHotkey="True" />
+
+        <KeyBinding
+            Command="{Binding OpenFlyoutCommand}"
+            CommandParameter="sales"
+            Key="F3"
+            hotkey:HotkeyManager.RegisterGlobalHotkey="True" />
+    </UserControl.InputBindings>
+
     <Grid Margin="16" VerticalAlignment="Top">
         <Grid.Resources>
             <Style BasedOn="{StaticResource {x:Type mah:Tile}}" TargetType="mah:Tile">
@@ -21,15 +44,27 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <mah:Tile Grid.Column="0" Title="Produtos [F1]">
+        <mah:Tile
+            Command="{Binding OpenFlyoutCommand}"
+            CommandParameter="products"
+            Grid.Column="0"
+            Title="Produtos [F1]">
             <icons:Lucide Kind="Barcode" />
         </mah:Tile>
 
-        <mah:Tile Grid.Column="2" Title="Clientes [F2]">
+        <mah:Tile
+            Command="{Binding OpenFlyoutCommand}"
+            CommandParameter="customers"
+            Grid.Column="2"
+            Title="Clientes [F2]">
             <icons:Lucide Kind="UserRound" />
         </mah:Tile>
 
-        <mah:Tile Grid.Column="4" Title="Vendas [F3]">
+        <mah:Tile
+            Command="{Binding OpenFlyoutCommand}"
+            CommandParameter="sales"
+            Grid.Column="4"
+            Title="Vendas [F3]">
             <icons:Lucide Kind="List" />
         </mah:Tile>
     </Grid>
