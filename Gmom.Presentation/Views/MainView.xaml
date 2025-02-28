@@ -8,13 +8,28 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     x:Class="Gmom.Presentation.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:converters="clr-namespace:Gmom.Presentation.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Gmom.Presentation.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:presentation="clr-namespace:Gmom.Presentation"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <mah:MetroWindow.Resources>
+        <converters:CompareStringConverter x:Key="CompareStringConverter" />
+        <converters:PercentageToDimensionConverter x:Key="PtDConverter" />
+    </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <local:ProductsFlyoutView
+                Header="Produtos"
+                IsOpen="{Binding CurrentFlyout, Converter={StaticResource CompareStringConverter}, ConverterParameter=products}"
+                Position="Right"
+                Width="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualWidth, Converter={StaticResource PtDConverter}, ConverterParameter=50}" />
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
     <Viewbox Stretch="Fill">
         <Grid Height="720" Width="1280">
             <StackPanel
@@ -32,4 +47,4 @@
     <mah:MetroWindow.InputBindings>
         <KeyBinding Command="{Binding LogoutCommand}" Key="F12" />
     </mah:MetroWindow.InputBindings>
-</mah:MetroWindow>
+</mah:MetroWindow> 
