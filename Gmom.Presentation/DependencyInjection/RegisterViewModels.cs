@@ -16,5 +16,7 @@ public partial class Injector
         Builder.RegisterType<SessionViewModel>();
 
         Builder.RegisterType<TilesViewModel>();
+        
+        Builder.RegisterType<ProductsFlyoutViewModel>();
     }
 }

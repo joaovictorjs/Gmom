@@ -12,5 +12,7 @@ public partial class Injector
         Builder.RegisterType<LoginView>();
 
         Builder.RegisterType<MainView>();
+        
+        Builder.RegisterType<UpdateProductView>();
     }
 }
