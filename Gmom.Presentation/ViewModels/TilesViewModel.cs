@@ -1,21 +1,19 @@
-﻿using System.Windows;
-using Gmom.Presentation.Events;
-using MahApps.Metro.Controls;
+﻿using Gmom.Presentation.Events;
 
 namespace Gmom.Presentation.ViewModels;
 
 public class TilesViewModel : BindableBase
 {
-    private IEventAggregator _eventAggregator;
-    
-    public DelegateCommand<string> OpenFlyoutCommand { get; }
-    
+    private readonly IEventAggregator _eventAggregator;
+
     public TilesViewModel(IEventAggregator eventAggregator)
     {
         _eventAggregator = eventAggregator;
-        
+
         OpenFlyoutCommand = new DelegateCommand<string>(OpenFlyout);
     }
+
+    public DelegateCommand<string> OpenFlyoutCommand { get; }
 
     private void OpenFlyout(string flyoutName)
     {

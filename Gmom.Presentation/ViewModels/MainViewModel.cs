@@ -1,11 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using Gmom.Domain.Interface;
+﻿using Gmom.Domain.Interface;
 using Gmom.Domain.Models;
-using Gmom.Infrastructure.Stores;
 using Gmom.Presentation.Events;
 using Gmom.Presentation.Views;
-using MahApps.Metro.Controls;
 
 namespace Gmom.Presentation.ViewModels;
 
@@ -15,14 +11,6 @@ public class MainViewModel : BindableBase, IClosableWindow
     private readonly IWindowService<LoginView, LoginViewModel> _loginViewService;
 
     private string _currentFlyout = string.Empty;
-
-    public string CurrentFlyout
-    {
-        get => _currentFlyout;
-        set => SetProperty(ref _currentFlyout, value);
-    }
-
-    public DelegateCommand LogoutCommand { get; }
 
     public MainViewModel(
         ICurrentUserStore currentUserStore,
@@ -38,6 +26,16 @@ public class MainViewModel : BindableBase, IClosableWindow
         eventAggregator.GetEvent<FlyoutOpened>().Subscribe(FlyoutOpened);
     }
 
+    public string CurrentFlyout
+    {
+        get => _currentFlyout;
+        set => SetProperty(ref _currentFlyout, value);
+    }
+
+    public DelegateCommand LogoutCommand { get; }
+
+    public Action? Close { get; set; }
+
     private void FlyoutOpened(string flyoutName)
     {
         CurrentFlyout = CurrentFlyout == flyoutName ? string.Empty : flyoutName;
@@ -50,12 +48,10 @@ public class MainViewModel : BindableBase, IClosableWindow
             Id = 0,
             Name = string.Empty,
             Password = string.Empty,
-            IsAdmin = false,
+            IsAdmin = false
         };
 
         _loginViewService.Create().Show();
         Close?.Invoke();
     }
-
-    public Action? Close { get; set; }
 }

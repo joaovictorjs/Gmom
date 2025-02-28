@@ -7,10 +7,7 @@ public class CompareStringConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not string stringValue || parameter is not string stringParameter)
-        {
-            return false;
-        }
+        if (value is not string stringValue || parameter is not string stringParameter) return false;
 
         return stringValue == stringParameter;
     }
@@ -22,11 +19,8 @@ public class CompareStringConverter : IValueConverter
         CultureInfo culture
     )
     {
-        if (value is not string stringValue || parameter is not string stringParameter)
-        {
-            return false;
-        }
-        
+        if (value is not string stringValue || parameter is not string stringParameter) return false;
+
         return stringValue != stringParameter;
     }
 }

@@ -47,4 +47,4 @@
     <mah:MetroWindow.InputBindings>
         <KeyBinding Command="{Binding LogoutCommand}" Key="F12" />
     </mah:MetroWindow.InputBindings>
-</mah:MetroWindow> 
+</mah:MetroWindow>
