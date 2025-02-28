@@ -1,8 +1,8 @@
 ﻿namespace Gmom.Presentation.Views;
 
-public partial class ProductsFlyoutView
+public partial class LocateProductsView
 {
-    public ProductsFlyoutView()
+    public LocateProductsView()
     {
         InitializeComponent();
     }
