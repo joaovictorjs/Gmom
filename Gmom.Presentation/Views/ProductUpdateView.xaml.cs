@@ -2,9 +2,9 @@
 
 namespace Gmom.Presentation.Views;
 
-public partial class UpdateProductView : Window
+public partial class ProductUpdateView : Window
 {
-    public UpdateProductView()
+    public ProductUpdateView()
     {
         InitializeComponent();
     }
