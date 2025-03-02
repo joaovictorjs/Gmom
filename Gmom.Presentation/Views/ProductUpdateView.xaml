@@ -1,8 +1,9 @@
-﻿<Window
+﻿<mah:MetroWindow
     Height="350"
     ResizeMode="NoResize"
-    Title="UpdateProductView"
+    Title="Inserir/Editar Produto"
     Width="500"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d"
     x:Class="Gmom.Presentation.Views.ProductUpdateView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -69,4 +70,4 @@
             Grid.Row="8"
             IsDefault="True" />
     </Grid>
-</Window>
+</mah:MetroWindow>
