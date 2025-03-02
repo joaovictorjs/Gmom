@@ -18,15 +18,18 @@
     <mah:MetroWindow.Resources>
         <converters:CompareStringConverter x:Key="CompareStringConverter" />
         <converters:PercentageToDimensionConverter x:Key="PtDConverter" />
+
+        <Style TargetType="mah:Flyout">
+            <Setter Property="Position" Value="Right" />
+            <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualWidth, Converter={StaticResource PtDConverter}, ConverterParameter=50}" />
+        </Style>
     </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl>
-            <local:ProductsFlyoutView
-                Header="Produtos"
-                IsOpen="{Binding CurrentFlyout, Converter={StaticResource CompareStringConverter}, ConverterParameter=products}"
-                Position="Right"
-                Width="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualWidth, Converter={StaticResource PtDConverter}, ConverterParameter=50}" />
+            <mah:Flyout Header="Produtos" IsOpen="{Binding CurrentFlyout, Converter={StaticResource CompareStringConverter}, ConverterParameter=products}">
+                <local:LocateProductsView />
+            </mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
 
