@@ -1,4 +1,5 @@
 ﻿using Gmom.Domain.Entities;
+using Gmom.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gmom.Infrastructure.Contexts;
@@ -6,6 +7,7 @@ namespace Gmom.Infrastructure.Contexts;
 public class PostgresContext(DbContextOptions<PostgresContext> options) : DbContext(options)
 {
     public DbSet<UserEntity> Users { get; }
+    public DbSet<ProductEntity> Products { get; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,6 +24,11 @@ public class PostgresContext(DbContextOptions<PostgresContext> options) : DbCont
                     IsAdmin = true
                 }
             );
+        });
+        
+        modelBuilder.Entity<ProductEntity>(entity =>
+        {
+            entity.HasIndex(it => it.BarCode).IsUnique();
         });
     }
 }
