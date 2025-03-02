@@ -17,10 +17,10 @@
 
     <Viewbox Stretch="Fill">
         <Grid
-            Height="720"
+            Height="624"
             Margin="16"
             VerticalAlignment="Top"
-            Width="640">
+            Width="608">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
