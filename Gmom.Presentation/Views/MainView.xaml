@@ -34,9 +34,9 @@
     </mah:MetroWindow.Flyouts>
 
     <Viewbox Stretch="Fill">
-        <Grid Height="720" Width="1280">
+        <Grid Height="690" Width="1280">
             <StackPanel
-                Height="688"
+                Height="658"
                 Orientation="Horizontal"
                 VerticalAlignment="Top">
                 <local:LeftView Width="448" />
