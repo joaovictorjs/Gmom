@@ -32,7 +32,16 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" mah:TextBoxHelper.Watermark="Pesquisar..." />
+            <TextBox Grid.Row="0" mah:TextBoxHelper.Watermark="Pesquisar...">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="F5" />
+                    <KeyBinding Key="F6" />
+                    <KeyBinding Key="F7" />
+                    <KeyBinding Command="{Binding InsertProductCommand}" Key="Insert" />
+                    <KeyBinding Key="Delete" />
+                    <KeyBinding Key="Insert" Modifiers="Alt" />
+                </TextBox.InputBindings>
+            </TextBox>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <StackPanel.Resources>
@@ -55,6 +64,7 @@
                     <Style BasedOn="{StaticResource MahApps.Styles.Button}" TargetType="Button">
                         <Setter Property="Margin" Value="16,0,0,0" />
                         <Setter Property="IsTabStop" Value="False" />
+                        <Setter Property="MinHeight" Value="36" />
                     </Style>
                 </StackPanel.Resources>
 
