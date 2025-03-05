@@ -34,7 +34,7 @@ public partial class Injector
             .As<IWindowService<MainView, MainViewModel>>();
 
         Builder
-            .RegisterType<WindowService<ProductUpdateView, ProductUpdateViewModel>>()
-            .As<IWindowService<ProductUpdateView, ProductUpdateViewModel>>();
+            .RegisterType<WindowService<InsertOrUpdateProductView, InsertOrUpdateProductViewModel>>()
+            .As<IWindowService<InsertOrUpdateProductView, InsertOrUpdateProductViewModel>>();
     }
 }

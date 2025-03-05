@@ -13,6 +13,6 @@ public partial class Injector
 
         Builder.RegisterType<MainView>();
         
-        Builder.RegisterType<ProductUpdateView>();
+        Builder.RegisterType<InsertOrUpdateProductView>();
     }
 }

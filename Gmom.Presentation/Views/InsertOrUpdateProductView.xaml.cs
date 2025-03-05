@@ -3,9 +3,9 @@ using MahApps.Metro.Controls;
 
 namespace Gmom.Presentation.Views;
 
-public partial class ProductUpdateView : MetroWindow
+public partial class InsertOrUpdateProductView : MetroWindow
 {
-    public ProductUpdateView()
+    public InsertOrUpdateProductView()
     {
         InitializeComponent();
     }

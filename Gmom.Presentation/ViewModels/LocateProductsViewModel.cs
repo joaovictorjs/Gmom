@@ -7,13 +7,13 @@ namespace Gmom.Presentation.ViewModels;
 public class LocateProductsViewModel : BindableBase
 {
     private readonly IWindowService<
-        ProductUpdateView,
-        ProductUpdateViewModel
+        InsertOrUpdateProductView,
+        InsertOrUpdateProductViewModel
     > _productUpdateWindowService;
     public DelegateCommand InsertProductCommand { get; }
 
     public LocateProductsViewModel(
-        IWindowService<ProductUpdateView, ProductUpdateViewModel> productUpdateWindowService
+        IWindowService<InsertOrUpdateProductView, InsertOrUpdateProductViewModel> productUpdateWindowService
     )
     {
         _productUpdateWindowService = productUpdateWindowService;
