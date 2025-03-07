@@ -1,4 +1,5 @@
 ﻿using System.Runtime.ExceptionServices;
+using Gmom.Domain.Exceptions;
 
 namespace Gmom.Infrastructure.Exceptions;
 
@@ -8,6 +9,12 @@ public abstract partial class GlobalExceptionHandler
     {
         switch (exception)
         {
+            case AdminException adminException:
+                HandleAdminException(adminException, action);
+                break;
+            case DuplicatedValueException duplicatedValueException:
+                HandleDuplicatedValueException(duplicatedValueException, action);
+                break;
             case InvalidOperationException invalidOperationException:
                 HandleInvalidOperationException(invalidOperationException, action);
                 break;
