@@ -22,6 +22,10 @@ public class WindowService<TWindow, TViewModel>(IComponentContext componentConte
             .Select(pair => new NamedParameter(pair.Key, pair.Value));
         _viewModel = componentContext.Resolve<TViewModel>(parameters);
         _window.DataContext = _viewModel;
+        
+        if(_viewModel is IClosableWindow closableWindow)
+            closableWindow.Close = _window.Close;
+        
         return this;
     }
 
