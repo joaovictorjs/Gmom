@@ -2,6 +2,7 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     x:Class="Gmom.Presentation.Views.LocateProductsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:converters="clr-namespace:Gmom.Presentation.Converters"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -14,6 +15,10 @@
         <KeyBinding Key="Delete" />
         <KeyBinding Key="Insert" Modifiers="Alt" />
     </UserControl.InputBindings>
+
+    <UserControl.Resources>
+        <converters:CompareStringConverter x:Key="CompareStringConverter" />
+    </UserControl.Resources>
 
     <Viewbox Stretch="Fill">
         <Grid
@@ -32,11 +37,23 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" mah:TextBoxHelper.Watermark="Pesquisar...">
+            <TextBox
+                Grid.Row="0"
+                Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                mah:TextBoxHelper.Watermark="Pesquisar...">
                 <TextBox.InputBindings>
-                    <KeyBinding Key="F5" />
-                    <KeyBinding Key="F6" />
-                    <KeyBinding Key="F7" />
+                    <KeyBinding
+                        Command="{Binding ChangeFindStrategyCommand}"
+                        CommandParameter="Name"
+                        Key="F5" />
+                    <KeyBinding
+                        Command="{Binding ChangeFindStrategyCommand}"
+                        CommandParameter="Id"
+                        Key="F6" />
+                    <KeyBinding
+                        Command="{Binding ChangeFindStrategyCommand}"
+                        CommandParameter="BarCode"
+                        Key="F7" />
                     <KeyBinding Command="{Binding InsertProductCommand}" Key="Insert" />
                     <KeyBinding Key="Delete" />
                     <KeyBinding Key="Insert" Modifiers="Alt" />
@@ -51,10 +68,87 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <RadioButton Content="Por Nome [F5]" />
-                <RadioButton Content="Por Código [F6]" />
-                <RadioButton Content="Por Código de barras [F7]" />
+                <RadioButton
+                    Command="{Binding ChangeFindStrategyCommand}"
+                    CommandParameter="Name"
+                    Content="Por Nome [F5]"
+                    IsChecked="{Binding FindStrategyName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource CompareStringConverter}, ConverterParameter=Name}" />
+
+                <RadioButton
+                    Command="{Binding ChangeFindStrategyCommand}"
+                    CommandParameter="Id"
+                    Content="Por Id [F6]"
+                    IsChecked="{Binding FindStrategyName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource CompareStringConverter}, ConverterParameter=Id}" />
+
+                <RadioButton
+                    Command="{Binding ChangeFindStrategyCommand}"
+                    CommandParameter="BarCode"
+                    Content="Por Código de barras [F7]"
+                    IsChecked="{Binding FindStrategyName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource CompareStringConverter}, ConverterParameter=BarCode}" />
             </StackPanel>
+
+            <ListView
+                AlternationCount="1"
+                Grid.Row="4"
+                ItemsSource="{Binding Products}"
+                SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="4" />
+                                <RowDefinition />
+                                <RowDefinition Height="8" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Grid.Row="0"
+                                Text="{Binding Id}" />
+
+                            <TextBlock
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Grid.Column="0"
+                                Grid.Row="2"
+                                MaxWidth="470"
+                                Text="{Binding Name}"
+                                TextWrapping="Wrap" />
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Grid.Row="2"
+                                HorizontalAlignment="Right"
+                                MaxWidth="100"
+                                Text="{Binding Price, StringFormat={}{0:C}}"
+                                TextAlignment="Right"
+                                TextWrapping="Wrap" />
+
+                            <TextBlock
+                                Grid.Column="0"
+                                Grid.Row="4"
+                                Text="{Binding BarCode}" />
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Grid.Row="4"
+                                Text="{Binding Stock, StringFormat={}{0:#.##} UN}"
+                                TextAlignment="Right" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <StackPanel
                 Grid.Row="6"
