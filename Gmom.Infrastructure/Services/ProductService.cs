@@ -1,8 +1,11 @@
-﻿using Gmom.Domain.Constants;
+﻿using System.Diagnostics;
+using Gmom.Domain.Constants;
 using Gmom.Domain.Entities;
+using Gmom.Domain.Enums;
 using Gmom.Domain.Exceptions;
 using Gmom.Domain.Interface;
 using Gmom.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gmom.Infrastructure.Services;
 
@@ -39,6 +42,27 @@ public class ProductService(
         {
             await repository.InsertAsync((ProductEntity)product.ToEntity());
         }
+    }
+
+    public async Task<List<ProductModel>> Find(string searchTerm, FindStrategy strategy)
+    {
+        searchTerm = searchTerm.Replace('\\', '%');
+
+        var data = strategy switch
+        {
+            FindStrategy.Id => await repository.WhereAsync(it =>
+                EF.Functions.ILike(it.Id.ToString(), searchTerm)
+            ),
+            FindStrategy.BarCode => await repository.WhereAsync(it =>
+                EF.Functions.ILike(it.BarCode, searchTerm)
+            ),
+            FindStrategy.Name => await repository.WhereAsync(it =>
+                EF.Functions.ILike(it.Name, searchTerm)
+            ),
+            _ => throw new ArgumentOutOfRangeException(nameof(strategy), strategy, null),
+        };
+
+        return data.Select(it => (ProductModel)it.ToModel()).ToList();
     }
 
     private async Task CheckBarCode(string productBarCode, int productId)
