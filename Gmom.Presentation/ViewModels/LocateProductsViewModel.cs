@@ -21,6 +21,7 @@ public class LocateProductsViewModel : BindableBase
 
     private string _searchTerm = string.Empty;
     private string _findStrategyName = FindStrategy.Name.ToString();
+    private int _selectedIndex = -1;
 
     public string SearchTerm
     {
@@ -42,16 +43,27 @@ public class LocateProductsViewModel : BindableBase
         }
     }
 
+    public int SelectedIndex
+    {
+        get => _selectedIndex;
+        set => SetProperty(ref _selectedIndex, value);
+    }
+
     public ObservableCollection<ProductModel> Products { get; } = [];
 
-    public DelegateCommand InsertProductCommand { get; }
+    public AsyncDelegateCommand InsertProductCommand { get; }
+    public AsyncDelegateCommand EditProductCommand { get; }
+    public AsyncDelegateCommand DeleteProductCommand { get; }
     public DelegateCommand<string> ChangeFindStrategyCommand { get; }
 
     public LocateProductsViewModel(
         IWindowService<
             InsertOrUpdateProductView,
             InsertOrUpdateProductViewModel
-        > productUpdateWindowService, IProductService productService, IMessageBoxService messageBoxService)
+        > productUpdateWindowService,
+        IProductService productService,
+        IMessageBoxService messageBoxService
+    )
     {
         _productUpdateWindowService = productUpdateWindowService;
         _productService = productService;
@@ -66,8 +78,52 @@ public class LocateProductsViewModel : BindableBase
             await SearchProducts();
         };
 
-        InsertProductCommand = new DelegateCommand(InsertProduct);
+        InsertProductCommand = new AsyncDelegateCommand(InsertProduct);
+        EditProductCommand = new AsyncDelegateCommand(EditProduct, CanEditProduct);
+        DeleteProductCommand = new AsyncDelegateCommand(DeleteProduct, CanDeleteProduct);
         ChangeFindStrategyCommand = new DelegateCommand<string>(ChangeFindStrategy);
+    }
+
+    private bool CanEditProduct()
+    {
+        return SelectedIndex > -1;
+    }
+
+    private bool CanDeleteProduct()
+    {
+        return SelectedIndex > -1;
+    }
+
+    private async Task DeleteProduct()
+    {
+        try
+        {
+            var res = _messageBoxService.ShowConfirmation(
+                "Tem certeza que deseja deletar esse produto?"
+            );
+
+            if (res == false)
+                return;
+
+            await _productService.Delete(Products[SelectedIndex]);
+
+            await SearchProducts();
+
+            _messageBoxService.ShowInformation("Produto deletado!");
+        }
+        catch (Exception ex)
+        {
+            ex.UseGlobalHandle(_messageBoxService.ShowError);
+        }
+    }
+
+    private async Task EditProduct()
+    {
+        _productUpdateWindowService
+            .Create(new KeyValuePair<string, object?>("product", Products[SelectedIndex]))
+            .ShowDialog();
+        
+        await SearchProducts();
     }
 
     private void ChangeFindStrategy(string strategy)
@@ -85,7 +141,10 @@ public class LocateProductsViewModel : BindableBase
     {
         try
         {
-            var data = await _productService.Find(_searchTerm, Enum.Parse<FindStrategy>(_findStrategyName));
+            var data = await _productService.Find(
+                _searchTerm,
+                Enum.Parse<FindStrategy>(_findStrategyName)
+            );
             Products.Clear();
             Products.AddRange(data);
         }
@@ -95,8 +154,16 @@ public class LocateProductsViewModel : BindableBase
         }
     }
 
-    private void InsertProduct()
+    private async Task InsertProduct()
     {
         _productUpdateWindowService.Create().ShowDialog();
+        await SearchProducts();
+    }
+
+    protected override bool SetProperty<T>(ref T storage, T value, string? propertyName = null)
+    {
+        DeleteProductCommand.RaiseCanExecuteChanged();
+        EditProductCommand.RaiseCanExecuteChanged();
+        return base.SetProperty(ref storage, value, propertyName);
     }
 }

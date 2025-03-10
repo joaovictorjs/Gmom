@@ -8,12 +8,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <UserControl.InputBindings>
-        <KeyBinding Key="F5" />
-        <KeyBinding Key="F6" />
-        <KeyBinding Key="F7" />
+        <KeyBinding
+            Command="{Binding ChangeFindStrategyCommand}"
+            CommandParameter="Name"
+            Key="F5" />
+        <KeyBinding
+            Command="{Binding ChangeFindStrategyCommand}"
+            CommandParameter="Id"
+            Key="F6" />
+        <KeyBinding
+            Command="{Binding ChangeFindStrategyCommand}"
+            CommandParameter="BarCode"
+            Key="F7" />
         <KeyBinding Command="{Binding InsertProductCommand}" Key="Insert" />
-        <KeyBinding Key="Delete" />
-        <KeyBinding Key="Insert" Modifiers="Alt" />
+        <KeyBinding Command="{Binding DeleteProductCommand}" Key="Delete" />
+        <KeyBinding
+            Command="{Binding EditProductCommand}"
+            Key="Insert"
+            Modifiers="Alt" />
     </UserControl.InputBindings>
 
     <UserControl.Resources>
@@ -55,8 +67,11 @@
                         CommandParameter="BarCode"
                         Key="F7" />
                     <KeyBinding Command="{Binding InsertProductCommand}" Key="Insert" />
-                    <KeyBinding Key="Delete" />
-                    <KeyBinding Key="Insert" Modifiers="Alt" />
+                    <KeyBinding Command="{Binding DeleteProductCommand}" Key="Delete" />
+                    <KeyBinding
+                        Command="{Binding EditProductCommand}"
+                        Key="Insert"
+                        Modifiers="Alt" />
                 </TextBox.InputBindings>
             </TextBox>
 
@@ -88,9 +103,9 @@
             </StackPanel>
 
             <ListView
-                AlternationCount="1"
                 Grid.Row="4"
                 ItemsSource="{Binding Products}"
+                SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectionMode="Single">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -163,8 +178,8 @@
                 </StackPanel.Resources>
 
                 <Button Command="{Binding InsertProductCommand}" Content="_Inserir" />
-                <Button Content="_Editar" />
-                <Button Content="_Deletar" />
+                <Button Command="{Binding EditProductCommand}" Content="_Editar" />
+                <Button Command="{Binding DeleteProductCommand}" Content="_Deletar" />
             </StackPanel>
         </Grid>
     </Viewbox>
