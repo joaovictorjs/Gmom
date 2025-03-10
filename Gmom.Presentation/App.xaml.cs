@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using System.Windows;
+using System.Windows.Markup;
 using System.Windows.Threading;
+using System.Xaml;
 using Gmom.Domain.Constants;
 using Gmom.Domain.Interface;
 using Gmom.Presentation.DependencyInjection;
@@ -19,6 +22,9 @@ public partial class App : Application
     {
         DispatcherUnhandledException += HandleUnhandledExceptions;
         ViewModelLocationProvider.SetDefaultViewModelFactory(_injector.Resolve);
+        
+        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
+            new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
     }
 
     protected override void OnStartup(StartupEventArgs e)
