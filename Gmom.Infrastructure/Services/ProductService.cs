@@ -65,6 +65,12 @@ public class ProductService(
         return data.Select(it => (ProductModel)it.ToModel()).ToList();
     }
 
+    public async Task Delete(ProductModel product)
+    {
+        await currentUserService.CheckIsAdmin();
+        await repository.DeleteAsync((ProductEntity)product.ToEntity());
+    }
+
     private async Task CheckBarCode(string productBarCode, int productId)
     {
         var barCodeCheck = await repository.WhereAsync(it =>

@@ -9,4 +9,5 @@ public interface IProductService
     string GenerateBarCode();
     Task Save(ProductModel product, bool isUpdate);
     Task<List<ProductModel>> Find(string searchTerm, FindStrategy strategy);
+    Task Delete(ProductModel product);
 }
