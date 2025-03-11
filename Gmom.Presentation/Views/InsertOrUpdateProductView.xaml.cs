@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using Gmom.Domain.Interface;
 using Gmom.Presentation.ViewModels;
 using MahApps.Metro.Controls;
@@ -10,12 +11,12 @@ public partial class InsertOrUpdateProductView : MetroWindow
     public InsertOrUpdateProductView()
     {
         InitializeComponent();
+
+        DataContextChanged += OnDataContextChanged;
     }
 
-    protected override void OnInitialized(EventArgs e)
+    private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        base.OnInitialized(e);
-
         if (DataContext is IClosableWindow closableWindow)
         {
             closableWindow.Close = Close;
