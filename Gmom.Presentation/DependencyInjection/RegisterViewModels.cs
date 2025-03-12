@@ -20,5 +20,7 @@ public partial class Injector
         Builder.RegisterType<LocateProductsViewModel>();
         
         Builder.RegisterType<InsertOrUpdateProductViewModel>();
+        
+        Builder.RegisterType<ManageUserViewModel>();
     }
 }

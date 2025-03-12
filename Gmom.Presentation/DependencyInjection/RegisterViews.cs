@@ -14,5 +14,7 @@ public partial class Injector
         Builder.RegisterType<MainView>();
         
         Builder.RegisterType<InsertOrUpdateProductView>();
+        
+        Builder.RegisterType<ManageUsersView>();
     }
 }
