@@ -44,7 +44,7 @@ public partial class Injector
         Builder.RegisterType<CurrentUserService>().As<ICurrentUserService>().SingleInstance();
 
         Builder
-            .RegisterType<WindowService<ManageUsersView, ManageUserViewModel>>()
-            .As<IWindowService<ManageUsersView, ManageUserViewModel>>();
+            .RegisterType<WindowService<ManageUsersView, ManageUsersViewModel>>()
+            .As<IWindowService<ManageUsersView, ManageUsersViewModel>>();
     }
 }

@@ -9,7 +9,7 @@ public class MainViewModel : BindableBase, IClosableWindow
 {
     private readonly ICurrentUserStore _currentUserStore;
     private readonly IWindowService<LoginView, LoginViewModel> _loginViewService;
-    private readonly IWindowService<ManageUsersView, ManageUserViewModel> _manageUsersService;
+    private readonly IWindowService<ManageUsersView, ManageUsersViewModel> _manageUsersService;
 
     private string _currentFlyout = string.Empty;
 
@@ -19,7 +19,7 @@ public class MainViewModel : BindableBase, IClosableWindow
         ICurrentUserStore currentUserStore,
         IWindowService<LoginView, LoginViewModel> loginViewService,
         IEventAggregator eventAggregator,
-        IWindowService<ManageUsersView, ManageUserViewModel> manageUsersService
+        IWindowService<ManageUsersView, ManageUsersViewModel> manageUsersService
     )
     {
         _currentUserStore = currentUserStore;
