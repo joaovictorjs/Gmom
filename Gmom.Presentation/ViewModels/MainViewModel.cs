@@ -9,21 +9,32 @@ public class MainViewModel : BindableBase, IClosableWindow
 {
     private readonly ICurrentUserStore _currentUserStore;
     private readonly IWindowService<LoginView, LoginViewModel> _loginViewService;
+    private readonly IWindowService<ManageUsersView, ManageUserViewModel> _manageUsersService;
 
     private string _currentFlyout = string.Empty;
+
+    public DelegateCommand OpenManageUsersCommand { get; }
 
     public MainViewModel(
         ICurrentUserStore currentUserStore,
         IWindowService<LoginView, LoginViewModel> loginViewService,
-        IEventAggregator eventAggregator
+        IEventAggregator eventAggregator,
+        IWindowService<ManageUsersView, ManageUserViewModel> manageUsersService
     )
     {
         _currentUserStore = currentUserStore;
         _loginViewService = loginViewService;
+        _manageUsersService = manageUsersService;
 
         LogoutCommand = new DelegateCommand(Logout);
+        OpenManageUsersCommand = new DelegateCommand(OpenManageUsers);
 
         eventAggregator.GetEvent<FlyoutOpened>().Subscribe(FlyoutOpened);
+    }
+
+    private void OpenManageUsers()
+    {
+        _manageUsersService.Create().ShowDialog();
     }
 
     public string CurrentFlyout
@@ -48,7 +59,7 @@ public class MainViewModel : BindableBase, IClosableWindow
             Id = 0,
             Name = string.Empty,
             Password = string.Empty,
-            IsAdmin = false
+            IsAdmin = false,
         };
 
         _loginViewService.Create().Show();
