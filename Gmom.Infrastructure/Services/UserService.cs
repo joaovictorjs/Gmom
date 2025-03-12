@@ -19,7 +19,8 @@ public class UserService(IRepository<UserEntity> repository) : IUserService
     {
         user.Password = toMD5(user.Password);
 
-        if (insert) return await repository.InsertAsync((UserEntity)user.ToEntity()) > 0;
+        if (insert)
+            return await repository.InsertAsync((UserEntity)user.ToEntity()) > 0;
 
         return await repository.UpdateAsync((UserEntity)user.ToEntity()) > 0;
     }
@@ -33,11 +34,18 @@ public class UserService(IRepository<UserEntity> repository) : IUserService
     {
         var user = (await repository.WhereAsync(it => it.Name == name)).FirstOrDefault();
 
-        if (user == null) throw new InvalidOperationException($"O usuário {name} não foi encontrado!");
+        if (user == null)
+            throw new InvalidOperationException($"O usuário {name} não foi encontrado!");
 
-        if (toMD5(password) != user.Password) throw new InvalidOperationException("Senha incorreta!");
+        if (toMD5(password) != user.Password)
+            throw new InvalidOperationException("Senha incorreta!");
 
         return (UserModel)user.ToModel();
+    }
+
+    public async Task<List<UserModel>> GetAll()
+    {
+        return (await repository.ToList()).Select(it => (UserModel)it.ToModel()).ToList();
     }
 
     private string toMD5(string content)
