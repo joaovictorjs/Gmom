@@ -9,4 +9,5 @@ public interface IUserService
     Task<bool> Delete(UserModel user);
     Task<UserModel> Login(string name, string password);
     Task<List<UserModel>> GetAll();
+    Task Save(UserModel user, bool isUpdate);
 }

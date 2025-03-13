@@ -2,13 +2,15 @@
 using System.Text;
 using Gmom.Domain.Constants;
 using Gmom.Domain.Entities;
+using Gmom.Domain.Exceptions;
 using Gmom.Domain.Interface;
 using Gmom.Domain.Models;
 using InvalidOperationException = System.InvalidOperationException;
 
 namespace Gmom.Infrastructure.Services;
 
-public class UserService(IRepository<UserEntity> repository) : IUserService
+public class UserService(IRepository<UserEntity> repository, ICurrentUserService currentUserService)
+    : IUserService
 {
     public int GetNextId()
     {
@@ -46,6 +48,32 @@ public class UserService(IRepository<UserEntity> repository) : IUserService
     public async Task<List<UserModel>> GetAll()
     {
         return (await repository.ToList()).Select(it => (UserModel)it.ToModel()).ToList();
+    }
+
+    public async Task Save(UserModel user, bool isUpdate)
+    {
+        await currentUserService.CheckIsAdmin();
+
+        await CheckName(user.Name, user.Id);
+
+        if (isUpdate)
+        {
+            await repository.UpdateAsync((UserEntity)user.ToEntity());
+        }
+        else
+        {
+            await repository.InsertAsync((UserEntity)user.ToEntity());
+        }
+    }
+
+    private async Task CheckName(string name, int id)
+    {
+        var userCheck = await repository.WhereAsync(it => it.Name == name && it.Id != id);
+
+        if (userCheck.Any())
+        {
+            throw new DuplicatedValueException($"O nome {name} ja está sendo utilizado!");
+        }
     }
 
     private string toMD5(string content)
