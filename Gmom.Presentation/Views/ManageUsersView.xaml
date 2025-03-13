@@ -70,7 +70,10 @@
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
 
-            <ListBox ItemsSource="{Binding Users}">
+            <ListBox
+                IsEnabled="{Binding IsReadMode}"
+                ItemsSource="{Binding Users}"
+                SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -99,34 +102,39 @@
             </Grid.RowDefinitions>
 
             <TextBlock
+                FontSize="18"
+                FontWeight="Bold"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
-                HorizontalAlignment="Right" />
+                HorizontalAlignment="Right"
+                Text="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
 
             <CheckBox
                 Content="Administrador"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Grid.Row="2"
-                HorizontalAlignment="Left" />
+                HorizontalAlignment="Left"
+                IsChecked="{Binding IsAdmin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
             <TextBox
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Grid.Row="4"
+                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 mah:TextBoxHelper.Watermark="Nome" />
 
             <PasswordBox
                 Grid.Column="0"
                 Grid.Row="6"
                 mah:TextBoxHelper.Watermark="Senha"
-                shared:PasswordBoxBindingBehavior.Password="" />
+                shared:PasswordBoxBindingBehavior.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
             <PasswordBox
                 Grid.Column="2"
                 Grid.Row="6"
                 mah:TextBoxHelper.Watermark="Confirmar senha"
-                shared:PasswordBoxBindingBehavior.Password="" />
+                shared:PasswordBoxBindingBehavior.Password="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
             <Button
                 Content="_Salvar"
