@@ -50,13 +50,13 @@ public class UserService(IRepository<UserEntity> repository, ICurrentUserService
         return (await repository.ToList()).Select(it => (UserModel)it.ToModel()).ToList();
     }
 
-    public async Task Save(UserModel newer, UserModel older, bool isUpdate)
+    public async Task Save(UserModel newer, UserModel? older)
     {
         await currentUserService.CheckIsAdmin();
 
-        await CheckName(newer.Name, older.Id);
+        await CheckName(newer.Name, newer.Id);
 
-        if (isUpdate)
+        if (older != null)
         {
             newer.Password = string.IsNullOrWhiteSpace(newer.Password)
                 ? older.Password
