@@ -66,6 +66,7 @@ public class UserService(IRepository<UserEntity> repository, ICurrentUserService
         }
         else
         {
+            toMD5(newer.Password);
             await repository.InsertAsync((UserEntity)newer.ToEntity());
         }
     }
