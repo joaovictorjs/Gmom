@@ -50,19 +50,23 @@ public class UserService(IRepository<UserEntity> repository, ICurrentUserService
         return (await repository.ToList()).Select(it => (UserModel)it.ToModel()).ToList();
     }
 
-    public async Task Save(UserModel user, bool isUpdate)
+    public async Task Save(UserModel newer, UserModel older, bool isUpdate)
     {
         await currentUserService.CheckIsAdmin();
 
-        await CheckName(user.Name, user.Id);
+        await CheckName(newer.Name, older.Id);
 
         if (isUpdate)
         {
-            await repository.UpdateAsync((UserEntity)user.ToEntity());
+            newer.Password = string.IsNullOrWhiteSpace(newer.Password)
+                ? older.Password
+                : toMD5(newer.Password);
+
+            await repository.UpdateAsync((UserEntity)newer.ToEntity());
         }
         else
         {
-            await repository.InsertAsync((UserEntity)user.ToEntity());
+            await repository.InsertAsync((UserEntity)newer.ToEntity());
         }
     }
 
