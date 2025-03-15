@@ -39,6 +39,10 @@
             <mah:Flyout Header="Produtos" IsOpen="{Binding CurrentFlyout, Converter={StaticResource CompareStringConverter}, ConverterParameter=products}">
                 <local:LocateProductsView />
             </mah:Flyout>
+
+            <mah:Flyout Header="Clientes" IsOpen="{Binding CurrentFlyout, Converter={StaticResource CompareStringConverter}, ConverterParameter=customers}">
+                <local:LocateCustomersView />
+            </mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
 
