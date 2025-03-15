@@ -15,7 +15,18 @@ public partial class InsertOrUpdateProductView : MetroWindow
         DataContextChanged += OnDataContextChanged;
     }
 
+    protected override void OnInitialized(EventArgs e)
+    {
+        base.OnInitialized(e);
+        AssignMethods();
+    }
+
     private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        AssignMethods();
+    }
+
+    private void AssignMethods()
     {
         if (DataContext is IClosableWindow closableWindow)
         {
