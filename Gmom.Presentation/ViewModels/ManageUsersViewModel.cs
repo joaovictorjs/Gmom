@@ -241,6 +241,7 @@ public class ManageUsersViewModel : BindableBase
         EditUserCommand.RaiseCanExecuteChanged();
         CancelCommand.RaiseCanExecuteChanged();
         SaveUserCommand.RaiseCanExecuteChanged();
+        DeleteUserCommand.RaiseCanExecuteChanged();
         return base.SetProperty(ref storage, value, propertyName);
     }
 }
