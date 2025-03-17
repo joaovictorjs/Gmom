@@ -44,10 +44,6 @@
                         Command="{Binding ChangeFindStrategyCommand}"
                         CommandParameter="Id"
                         Key="F6" />
-                    <KeyBinding
-                        Command="{Binding ChangeFindStrategyCommand}"
-                        CommandParameter="Document"
-                        Key="F7" />
                     <KeyBinding Command="{Binding InsertCustomerCommand}" Key="Insert" />
                     <KeyBinding Command="{Binding DeleteCustomerCommand}" Key="Delete" />
                     <KeyBinding
@@ -76,12 +72,6 @@
                     CommandParameter="Id"
                     Content="Por Id [F6]"
                     IsChecked="{Binding FindStrategyName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource CompareStringConverter}, ConverterParameter=Id}" />
-
-                <RadioButton
-                    Command="{Binding ChangeFindStrategyCommand}"
-                    CommandParameter="Document"
-                    Content="Por CPF/CNPJ [F7]"
-                    IsChecked="{Binding FindStrategyName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource CompareStringConverter}, ConverterParameter=Document}" />
             </StackPanel>
 
             <ListView
