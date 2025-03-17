@@ -9,6 +9,9 @@ public abstract partial class GlobalExceptionHandler
     {
         switch (exception)
         {
+            case CurrentUserDeleteException currentUserDeleteException:
+                HandleCurrentUserDeleteException(currentUserDeleteException, action);
+                break;
             case AdminException adminException:
                 HandleAdminException(adminException, action);
                 break;
