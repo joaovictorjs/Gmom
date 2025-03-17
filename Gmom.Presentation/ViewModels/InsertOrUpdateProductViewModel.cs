@@ -30,7 +30,24 @@ public class InsertOrUpdateProductViewModel : BindableBase, IClosableWindow
     public string BarCode
     {
         get => _barCode;
-        set => SetProperty(ref _barCode, value);
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                SetProperty(ref _barCode, value);
+                return;
+            }
+
+            if (value.Length > 13)
+            {
+                return;
+            }
+            
+            if (ulong.TryParse(value, out var result))
+            {
+                SetProperty(ref _barCode, result.ToString());
+            }
+        }
     }
     public string Price
     {
