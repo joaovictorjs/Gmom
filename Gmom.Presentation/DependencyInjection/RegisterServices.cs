@@ -46,5 +46,9 @@ public partial class Injector
         Builder
             .RegisterType<WindowService<ManageUsersView, ManageUsersViewModel>>()
             .As<IWindowService<ManageUsersView, ManageUsersViewModel>>();
+        
+        Builder
+            .RegisterType<WindowService<InsertOrUpdateCustomerView, InsertOrUpdateCustomerViewModel>>()
+            .As<IWindowService<InsertOrUpdateCustomerView, InsertOrUpdateCustomerViewModel>>();
     }
 }
