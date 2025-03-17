@@ -1,6 +1,7 @@
 ﻿using Gmom.Domain.Entities;
 using Gmom.Domain.Exceptions;
 using Gmom.Domain.Interface;
+using Gmom.Domain.Models;
 
 namespace Gmom.Infrastructure.Services;
 
@@ -13,5 +14,10 @@ public class CurrentUserService(ICurrentUserStore store, IRepository<UserEntity>
         {
             throw new AdminException("É necessário ser administrador para realizar esta ação!");
         }
+    }
+
+    public UserModel GetCurrentUser()
+    {
+        return store.Value;
     }
 }
