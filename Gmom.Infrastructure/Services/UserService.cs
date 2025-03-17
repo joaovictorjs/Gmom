@@ -29,6 +29,13 @@ public class UserService(IRepository<UserEntity> repository, ICurrentUserService
 
     public async Task<bool> Delete(UserModel user)
     {
+        await currentUserService.CheckIsAdmin();
+
+        if (currentUserService.GetCurrentUser().Id == user.Id)
+        {
+            throw new CurrentUserDeleteException($"Não é possível deletar o usuário '{user.Name}', pois ele está atualmente em uso para sua sessão!");
+        }
+        
         return await repository.DeleteAsync((UserEntity)user.ToEntity()) > 0;
     }
 
