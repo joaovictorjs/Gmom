@@ -8,6 +8,7 @@ public class PostgresContext(DbContextOptions<PostgresContext> options) : DbCont
 {
     public DbSet<UserEntity> Users { get; }
     public DbSet<ProductEntity> Products { get; }
+    public DbSet<CustomerEntity> Customers { get; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,14 +22,19 @@ public class PostgresContext(DbContextOptions<PostgresContext> options) : DbCont
                     Id = 1,
                     Name = "ADMIN",
                     Password = "21232f297a57a5a743894a0e4a801fc3",
-                    IsAdmin = true
+                    IsAdmin = true,
                 }
             );
         });
-        
+
         modelBuilder.Entity<ProductEntity>(entity =>
         {
             entity.HasIndex(it => it.BarCode).IsUnique();
+        });
+
+        modelBuilder.Entity<CustomerEntity>(entity =>
+        {
+            entity.HasData(new CustomerEntity { Id = 1, Name = "CONSUMIDOR FINAL" });
         });
     }
 }
