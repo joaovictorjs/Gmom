@@ -1,5 +1,6 @@
 ﻿<mah:MetroWindow
     Height="350"
+    ResizeMode="NoResize"
     Title="Inserir/Editar Cliente"
     Width="500"
     WindowStartupLocation="CenterScreen"
@@ -13,5 +14,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid />
+    <Grid Margin="16" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" HorizontalAlignment="Right" />
+
+        <TextBox
+            Grid.Column="0"
+            Grid.Row="2"
+            mah:TextBoxHelper.Watermark="Nome" />
+
+        <Button
+            Content="_Salvar"
+            Grid.Column="0"
+            Grid.Row="4" />
+    </Grid>
 </mah:MetroWindow>
