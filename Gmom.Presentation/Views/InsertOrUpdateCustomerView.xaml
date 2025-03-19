@@ -1,4 +1,5 @@
 ﻿<mah:MetroWindow
+    FocusManager.FocusedElement="{Binding ElementName=NameField}"
     Height="350"
     ResizeMode="NoResize"
     Title="Inserir/Editar Cliente"
@@ -23,16 +24,25 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" HorizontalAlignment="Right" />
+        <TextBlock
+            FontSize="18"
+            FontWeight="Bold"
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Text="{Binding Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBox
             Grid.Column="0"
             Grid.Row="2"
+            Name="NameField"
+            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             mah:TextBoxHelper.Watermark="Nome" />
 
         <Button
+            Command="{Binding SaveCommand}"
             Content="_Salvar"
             Grid.Column="0"
-            Grid.Row="4" />
+            Grid.Row="4"
+            IsDefault="True" />
     </Grid>
 </mah:MetroWindow>
