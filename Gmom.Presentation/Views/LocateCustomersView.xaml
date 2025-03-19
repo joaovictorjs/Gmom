@@ -28,6 +28,7 @@
             Command="{Binding EditCustomerCommand}"
             Key="Insert"
             Modifiers="Alt" />
+        <KeyBinding Command="{Binding SelecteCustomerCommand}" Key="Enter" />
     </UserControl.InputBindings>
 
     <UserControl.Resources>
@@ -101,6 +102,10 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,8" Orientation="Vertical">
+                            <StackPanel.InputBindings>
+                                <MouseBinding Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.SelecteCustomerCommand}" Gesture="LeftDoubleClick" />
+                            </StackPanel.InputBindings>
+
                             <TextBlock
                                 FontSize="14"
                                 FontWeight="SemiBold"
