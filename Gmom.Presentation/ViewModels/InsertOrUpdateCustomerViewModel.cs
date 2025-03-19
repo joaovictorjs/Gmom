@@ -23,8 +23,8 @@ public class InsertOrUpdateCustomerViewModel : BindableBase, IClosableWindow
 
     public string Name
     {
-        get => _name;
-        set => SetProperty(ref _name, value);
+        get => _name.ToUpper();
+        set => SetProperty(ref _name, value.ToUpper());
     }
 
     public AsyncDelegateCommand SaveCommand { get; }
