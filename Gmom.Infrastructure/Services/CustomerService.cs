@@ -48,4 +48,10 @@ public class CustomerService(
 
         return data.Select(it => (CustomerModel)it.ToModel()).ToList();
     }
+
+    public async Task Delete(CustomerModel customer)
+    {
+        await currentUserService.CheckIsAdmin();
+        await repository.DeleteAsync((CustomerEntity)customer.ToEntity());
+    }
 }
