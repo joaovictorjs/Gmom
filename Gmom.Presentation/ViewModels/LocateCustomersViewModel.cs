@@ -56,7 +56,7 @@ public class LocateCustomersViewModel : BindableBase
     public DelegateCommand InsertCustomerCommand { get; }
     public AsyncDelegateCommand DeleteCustomerCommand { get; }
     public AsyncDelegateCommand EditCustomerCommand { get; }
-    public DelegateCommand SelecteCustomerCommand { get; }
+    public DelegateCommand SelectCustomerCommand { get; }
 
     public LocateCustomersViewModel(
         IWindowService<
@@ -75,7 +75,7 @@ public class LocateCustomersViewModel : BindableBase
         InsertCustomerCommand = new DelegateCommand(InsertCustomer);
         DeleteCustomerCommand = new AsyncDelegateCommand(DeleteCustomer, CanDeleteCustomer);
         EditCustomerCommand = new AsyncDelegateCommand(EditCustomer, CanEditCustomer);
-        SelecteCustomerCommand = new DelegateCommand(SelectCustomer, CanSelectCustomer);
+        SelectCustomerCommand = new DelegateCommand(SelectCustomer, CanSelectCustomer);
 
         _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
 
@@ -176,7 +176,7 @@ public class LocateCustomersViewModel : BindableBase
     {
         DeleteCustomerCommand.RaiseCanExecuteChanged();
         EditCustomerCommand.RaiseCanExecuteChanged();
-        SelecteCustomerCommand.RaiseCanExecuteChanged();
+        SelectCustomerCommand.RaiseCanExecuteChanged();
         return base.SetProperty(ref storage, value, propertyName);
     }
 }

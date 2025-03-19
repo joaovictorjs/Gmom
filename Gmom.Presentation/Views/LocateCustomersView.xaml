@@ -28,7 +28,7 @@
             Command="{Binding EditCustomerCommand}"
             Key="Insert"
             Modifiers="Alt" />
-        <KeyBinding Command="{Binding SelecteCustomerCommand}" Key="Enter" />
+        <KeyBinding Command="{Binding SelectCustomerCommand}" Key="Enter" />
     </UserControl.InputBindings>
 
     <UserControl.Resources>
@@ -103,7 +103,7 @@
                     <DataTemplate>
                         <StackPanel Margin="0,8" Orientation="Vertical">
                             <StackPanel.InputBindings>
-                                <MouseBinding Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.SelecteCustomerCommand}" Gesture="LeftDoubleClick" />
+                                <MouseBinding Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.SelectCustomerCommand}" Gesture="LeftDoubleClick" />
                             </StackPanel.InputBindings>
 
                             <TextBlock
