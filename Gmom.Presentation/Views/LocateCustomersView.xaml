@@ -13,6 +13,23 @@
     xmlns:prism="http://prismlibrary.com/"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <UserControl.InputBindings>
+        <KeyBinding
+            Command="{Binding ChangeFindStrategyCommand}"
+            CommandParameter="Name"
+            Key="F5" />
+        <KeyBinding
+            Command="{Binding ChangeFindStrategyCommand}"
+            CommandParameter="Id"
+            Key="F6" />
+        <KeyBinding Command="{Binding InsertCustomerCommand}" Key="Insert" />
+        <KeyBinding Command="{Binding DeleteCustomerCommand}" Key="Delete" />
+        <KeyBinding
+            Command="{Binding EditCustomerCommand}"
+            Key="Insert"
+            Modifiers="Alt" />
+    </UserControl.InputBindings>
+
     <UserControl.Resources>
         <converters:CompareStringConverter x:Key="CompareStringConverter" />
     </UserControl.Resources>
@@ -92,8 +109,11 @@
                             <TextBlock
                                 FontSize="16"
                                 FontWeight="Bold"
+                                HorizontalAlignment="Left"
                                 Margin="0,4,0,0"
-                                Text="{Binding Name}" />
+                                MaxWidth="500"
+                                Text="{Binding Name}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
