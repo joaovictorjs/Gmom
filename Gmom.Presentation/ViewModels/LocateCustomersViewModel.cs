@@ -17,6 +17,7 @@ public class LocateCustomersViewModel : BindableBase
     > _customerWindowService;
     private readonly ICustomerService _customerService;
     private readonly IMessageBoxService _messageBoxService;
+    private readonly IEventAggregator _eventAggregator;
 
     private string _searchTerm = string.Empty;
     private string _findStrategyName = FindStrategy.Name.ToString();
@@ -55,6 +56,7 @@ public class LocateCustomersViewModel : BindableBase
     public DelegateCommand InsertCustomerCommand { get; }
     public AsyncDelegateCommand DeleteCustomerCommand { get; }
     public AsyncDelegateCommand EditCustomerCommand { get; }
+    public DelegateCommand SelecteCustomerCommand { get; }
 
     public LocateCustomersViewModel(
         IWindowService<
@@ -62,17 +64,18 @@ public class LocateCustomersViewModel : BindableBase
             InsertOrUpdateCustomerViewModel
         > customerWindowService,
         ICustomerService customerService,
-        IMessageBoxService messageBoxService
-    )
+        IMessageBoxService messageBoxService, IEventAggregator eventAggregator)
     {
         _customerWindowService = customerWindowService;
         _customerService = customerService;
         _messageBoxService = messageBoxService;
+        _eventAggregator = eventAggregator;
 
         ChangeFindStrategyCommand = new DelegateCommand<string>(ChangeFindStrategy);
         InsertCustomerCommand = new DelegateCommand(InsertCustomer);
         DeleteCustomerCommand = new AsyncDelegateCommand(DeleteCustomer, CanDeleteCustomer);
         EditCustomerCommand = new AsyncDelegateCommand(EditCustomer, CanEditCustomer);
+        SelecteCustomerCommand = new DelegateCommand(SelectCustomer, CanSelectCustomer);
 
         _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
 
@@ -82,6 +85,17 @@ public class LocateCustomersViewModel : BindableBase
 
             await SearchCustomers();
         };
+    }
+
+    private bool CanSelectCustomer()
+    {
+        return SelectedIndex > -1;
+    }
+
+    private void SelectCustomer()
+    {
+        _eventAggregator.GetEvent<CustomerSelected>().Publish(Customers[SelectedIndex]);
+        _eventAggregator.GetEvent<FlyoutOpened>().Publish(string.Empty);
     }
 
     private bool CanEditCustomer()
@@ -162,6 +176,7 @@ public class LocateCustomersViewModel : BindableBase
     {
         DeleteCustomerCommand.RaiseCanExecuteChanged();
         EditCustomerCommand.RaiseCanExecuteChanged();
+        SelecteCustomerCommand.RaiseCanExecuteChanged();
         return base.SetProperty(ref storage, value, propertyName);
     }
 }
