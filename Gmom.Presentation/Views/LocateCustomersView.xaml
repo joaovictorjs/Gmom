@@ -80,7 +80,24 @@
                 Grid.Row="4"
                 ItemsSource="{Binding Customers}"
                 SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                SelectionMode="Single" />
+                SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,8" Orientation="Vertical">
+                            <TextBlock
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Text="{Binding Id}" />
+
+                            <TextBlock
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Margin="0,4,0,0"
+                                Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <StackPanel
                 Grid.Row="6"
