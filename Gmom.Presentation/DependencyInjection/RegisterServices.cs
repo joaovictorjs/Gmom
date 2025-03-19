@@ -50,5 +50,7 @@ public partial class Injector
         Builder
             .RegisterType<WindowService<InsertOrUpdateCustomerView, InsertOrUpdateCustomerViewModel>>()
             .As<IWindowService<InsertOrUpdateCustomerView, InsertOrUpdateCustomerViewModel>>();
+        
+        Builder.RegisterType<CustomerService>().As<ICustomerService>();
     }
 }

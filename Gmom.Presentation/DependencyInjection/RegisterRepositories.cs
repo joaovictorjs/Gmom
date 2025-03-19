@@ -14,5 +14,7 @@ public partial class Injector
         Builder.RegisterType<Repository<UserEntity>>().As<IRepository<UserEntity>>();
 
         Builder.RegisterType<Repository<ProductEntity>>().As<IRepository<ProductEntity>>();
+        
+        Builder.RegisterType<Repository<CustomerEntity>>().As<IRepository<CustomerEntity>>();
     }
 }
