@@ -26,6 +26,7 @@
             Command="{Binding EditProductCommand}"
             Key="Insert"
             Modifiers="Alt" />
+        <KeyBinding Command="{Binding SelectProductCommand}" Key="Enter" />
     </UserControl.InputBindings>
 
     <UserControl.Resources>
@@ -110,6 +111,10 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,8">
+                            <Grid.InputBindings>
+                                <MouseBinding Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.SelectProductCommand}" Gesture="LeftDoubleClick" />
+                            </Grid.InputBindings>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="16" />

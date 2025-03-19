@@ -5,6 +5,7 @@ using Gmom.Domain.Enums;
 using Gmom.Domain.Interface;
 using Gmom.Domain.Models;
 using Gmom.Infrastructure.Exceptions;
+using Gmom.Presentation.Events;
 using Gmom.Presentation.Views;
 
 namespace Gmom.Presentation.ViewModels;
@@ -18,6 +19,7 @@ public class LocateProductsViewModel : BindableBase
     private readonly DispatcherTimer _dispatcherTimer;
     private readonly IProductService _productService;
     private readonly IMessageBoxService _messageBoxService;
+    private readonly IEventAggregator _eventAggregator;
 
     private string _searchTerm = string.Empty;
     private string _findStrategyName = FindStrategy.Name.ToString();
@@ -55,6 +57,7 @@ public class LocateProductsViewModel : BindableBase
     public AsyncDelegateCommand EditProductCommand { get; }
     public AsyncDelegateCommand DeleteProductCommand { get; }
     public DelegateCommand<string> ChangeFindStrategyCommand { get; }
+    public DelegateCommand SelectProductCommand { get; }
 
     public LocateProductsViewModel(
         IWindowService<
@@ -62,12 +65,12 @@ public class LocateProductsViewModel : BindableBase
             InsertOrUpdateProductViewModel
         > productUpdateWindowService,
         IProductService productService,
-        IMessageBoxService messageBoxService
-    )
+        IMessageBoxService messageBoxService, IEventAggregator eventAggregator)
     {
         _productUpdateWindowService = productUpdateWindowService;
         _productService = productService;
         _messageBoxService = messageBoxService;
+        _eventAggregator = eventAggregator;
 
         _dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
 
@@ -82,6 +85,18 @@ public class LocateProductsViewModel : BindableBase
         EditProductCommand = new AsyncDelegateCommand(EditProduct, CanEditProduct);
         DeleteProductCommand = new AsyncDelegateCommand(DeleteProduct, CanDeleteProduct);
         ChangeFindStrategyCommand = new DelegateCommand<string>(ChangeFindStrategy);
+        SelectProductCommand = new DelegateCommand(SelectProduct, CanSelectProduct);
+    }
+
+    private bool CanSelectProduct()
+    {
+        return SelectedIndex > -1;
+    }
+
+    private void SelectProduct()
+    {
+       _eventAggregator.GetEvent<ProductSelected>().Publish(Products[SelectedIndex]);
+       _eventAggregator.GetEvent<FlyoutOpened>().Publish(string.Empty);
     }
 
     private bool CanEditProduct()
