@@ -31,4 +31,9 @@ public static class StringExtensions
             ? fallback
             : $"{number}%";
     }
+
+    public static double FromBrazilianRealToDouble(this string str)
+    {
+        return double.Parse(str.Replace("R$", string.Empty).Trim(), CultureInfo.CurrentCulture);
+    }
 }
