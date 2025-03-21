@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Gmom.Domain.Extensions;
 using Gmom.Domain.Interface;
 using Gmom.Domain.Models;
 using Gmom.Infrastructure.Exceptions;
@@ -13,7 +14,7 @@ public class InsertOrUpdateProductViewModel : BindableBase, IClosableWindow
     private int _id;
     private string _name = string.Empty;
     private string _barCode = string.Empty;
-    private double _price;
+    private string _price;
     private double _stock;
     private readonly bool _isEditMode;
 
@@ -51,23 +52,8 @@ public class InsertOrUpdateProductViewModel : BindableBase, IClosableWindow
     }
     public string Price
     {
-        get => _price.ToString("C");
-        set
-        {            
-            if (string.IsNullOrWhiteSpace(value)) return;
-
-            if (
-                !double.TryParse(
-                    value,
-                    NumberStyles.Currency,
-                    CultureInfo.CurrentCulture,
-                    out var price
-                )
-            )
-                return;
-
-            SetProperty(ref _price, price);
-        }
+        get => _price;
+        set => SetProperty(ref _price, value.ToBrazilianReal(_price));
     }
     public string Stock
     {
@@ -107,7 +93,7 @@ public class InsertOrUpdateProductViewModel : BindableBase, IClosableWindow
             _id = product.Id;
             _name = product.Name;
             _barCode = product.BarCode;
-            _price = product.Price;
+            _price = product.Price.ToString(CultureInfo.CurrentCulture);
             _stock = product.Stock;
             _isEditMode = true;
         }
@@ -140,7 +126,7 @@ public class InsertOrUpdateProductViewModel : BindableBase, IClosableWindow
                     Id = _id,
                     Name = _name,
                     BarCode = _barCode,
-                    Price = _price,
+                    Price = _price.FromBrazilianRealToDouble(),
                     Stock = _stock,
                 },
                 _isEditMode
