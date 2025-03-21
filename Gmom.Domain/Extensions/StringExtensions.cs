@@ -36,4 +36,9 @@ public static class StringExtensions
     {
         return double.Parse(str.Replace("R$", string.Empty).Trim(), CultureInfo.CurrentCulture);
     }
+
+    public static double FromDiscountToDouble(this string str)
+    {
+        return double.Parse(str.Replace("%", string.Empty).Trim(), CultureInfo.CurrentCulture);
+    }
 }
