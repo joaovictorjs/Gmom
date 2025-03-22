@@ -65,6 +65,19 @@ public class ProductService(
         return data.Select(it => (ProductModel)it.ToModel()).ToList();
     }
 
+    public async Task<ProductModel?> FindOne(string searchTerm, FindStrategy strategy)
+    {
+        var data = strategy switch
+        {
+            FindStrategy.Id => await repository.WhereAsync(it => it.Id.ToString() == searchTerm),
+            FindStrategy.BarCode => await repository.WhereAsync(it => it.BarCode == searchTerm),
+            FindStrategy.Name => await repository.WhereAsync(it => it.Name == searchTerm),
+            _ => throw new ArgumentOutOfRangeException(nameof(strategy), strategy, null),
+        };
+
+        return (ProductModel?)data.FirstOrDefault()?.ToModel();
+    }
+
     public async Task Delete(ProductModel product)
     {
         await currentUserService.CheckIsAdmin();
