@@ -45,8 +45,8 @@
             Grid.Column="0"
             Grid.ColumnSpan="3"
             Grid.Row="4"
-            Text="{Binding ProductVersusQuantity}"
-            mah:TextBoxHelper.Watermark="Produto * Quantidade" />
+            Text="{Binding ProductVersusQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            mah:TextBoxHelper.Watermark="Quantidade * Produto" />
 
         <Label
             Content="Preço"
@@ -78,7 +78,7 @@
             Grid.ColumnSpan="3"
             Grid.Row="12"
             IsEnabled="False"
-            Text="{Binding Discount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Text="{Binding TotalPrice, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
             mah:TextBoxHelper.Watermark="Quantidade * (Preço - Desconto)" />
     </Grid>
 </UserControl>
