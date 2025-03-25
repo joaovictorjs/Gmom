@@ -28,5 +28,7 @@ public partial class Injector
         Builder.RegisterType<InsertOrUpdateCustomerViewModel>();
         
         Builder.RegisterType<CustomerPanelViewModel>();
+        
+        Builder.RegisterType<ProductPanelViewModel>();
     }
 }
