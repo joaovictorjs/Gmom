@@ -41,6 +41,7 @@
             Grid.Column="0"
             Grid.ColumnSpan="3"
             Grid.Row="4"
+            Text="{Binding QuantityVersusProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             mah:TextBoxHelper.Watermark="Quantidade * Produto" />
 
         <Label
