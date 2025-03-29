@@ -88,6 +88,7 @@ public class ProductPanelViewModel : BindableBase
             if (value.IsNullOrWhiteSpace())
             {
                 SetProperty(ref _price, string.Empty);
+                CalculateTotal();
                 return;
             }
 
@@ -103,7 +104,24 @@ public class ProductPanelViewModel : BindableBase
                 return;
 
             SetProperty(ref _price, value);
+
+            CalculateTotal();
         }
+    }
+
+    private void CalculateTotal()
+    {
+        var price = _price.IsNullOrWhiteSpace()
+            ? 0
+            : double.Parse(_price, CultureInfo.CurrentCulture);
+        var discount = _discount.IsNullOrWhiteSpace()
+            ? 0
+            : double.Parse(_discount, CultureInfo.CurrentCulture) / 100;
+        var totalPrice = price * _quantity;
+        Total = (totalPrice - (totalPrice * discount)).ToString(
+            "0#.##",
+            CultureInfo.CurrentCulture
+        );
     }
 
     private string _discount = string.Empty;
@@ -115,6 +133,7 @@ public class ProductPanelViewModel : BindableBase
             if (value.IsNullOrWhiteSpace())
             {
                 SetProperty(ref _discount, string.Empty);
+                CalculateTotal();
                 return;
             }
 
@@ -131,6 +150,8 @@ public class ProductPanelViewModel : BindableBase
                 return;
 
             SetProperty(ref _discount, value);
+
+            CalculateTotal();
         }
     }
 
@@ -171,7 +192,6 @@ public class ProductPanelViewModel : BindableBase
                 Name = result.Name;
                 Price = result.Price.ToString(CultureInfo.CurrentCulture);
                 Discount = string.Empty;
-                Total = (result.Price * _quantity).ToString("#.##",CultureInfo.CurrentCulture);
             }
         }
         catch (Exception ex)
