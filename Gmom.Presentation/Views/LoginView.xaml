@@ -10,6 +10,7 @@
     x:Class="Gmom.Presentation.Views.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:Gmom.Presentation.Helpers"
     xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -36,12 +37,15 @@
 
         <TextBox
             Grid.Row="0"
-            Name="NameField"
+            Name="NameBox"
             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            helpers:ControlHelper.MoveFocusTo="{Binding ElementName=PasswordBox}"
             mah:TextBoxHelper.Watermark="Usuário" />
 
         <PasswordBox
             Grid.Row="2"
+            Name="PasswordBox"
+            helpers:ControlHelper.MoveFocusTo="{Binding ElementName=NameBox}"
             mah:TextBoxHelper.Watermark="Senha"
             shared:PasswordBoxBindingBehavior.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
