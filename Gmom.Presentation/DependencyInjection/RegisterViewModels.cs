@@ -30,5 +30,7 @@ public partial class Injector
         Builder.RegisterType<CustomerPanelViewModel>();
         
         Builder.RegisterType<ProductPanelViewModel>();
+        
+        Builder.RegisterType<CartViewModel>();
     }
 }
