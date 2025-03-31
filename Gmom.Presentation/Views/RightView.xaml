@@ -5,11 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="16" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:CustomerPanelView Grid.Column="0" Margin="0,16,16,0" />
+        <local:CustomerPanelView
+            Grid.Column="0"
+            Grid.Row="1"
+            Margin="0,0,16,0" />
+
+        <local:CartView Grid.Row="3" />
     </Grid>
 </UserControl>
