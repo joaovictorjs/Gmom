@@ -1,9 +1,15 @@
-﻿namespace Gmom.Domain.Models;
+﻿using Gmom.Domain.Interface;
 
-public class CartModel
+namespace Gmom.Domain.Models;
+
+public class CartProductModel : IModel
 { 
     public required string Name { get; set; }
     public required string BarCode { get; set; }
     public required double Price { get; set; }
     public required double Quantity { get; set; }
+    public IEntity ToEntity()
+    {
+        throw new NotImplementedException();
+    }
 }
