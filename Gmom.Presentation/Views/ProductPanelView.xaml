@@ -6,6 +6,14 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.InputBindings>
+        <KeyBinding
+            Command="{Binding AddProductToCartCommand}"
+            Key="Enter"
+            Modifiers="Alt" />
+    </UserControl.InputBindings>
+
     <Grid Margin="16" VerticalAlignment="Bottom">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -73,7 +81,11 @@
             Name="DiscountBox"
             Text="{Binding Discount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             helpers:ControlHelper.MoveFocusTo="{Binding ElementName=QuantityVersusProductBox}"
-            mah:TextBoxHelper.Watermark="Porcentagem" />
+            mah:TextBoxHelper.Watermark="Porcentagem">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding AddProductToCartCommand}" Key="Enter" />
+            </TextBox.InputBindings>
+        </TextBox>
 
         <Label
             Content="Total"

@@ -4,7 +4,9 @@ using System.Windows.Threading;
 using Gmom.Domain.Enums;
 using Gmom.Domain.Extensions;
 using Gmom.Domain.Interface;
+using Gmom.Domain.Models;
 using Gmom.Infrastructure.Exceptions;
+using Gmom.Presentation.Events;
 
 namespace Gmom.Presentation.ViewModels;
 
@@ -13,14 +15,20 @@ public class ProductPanelViewModel : BindableBase
     private readonly DispatcherTimer _timer;
     private readonly IMessageBoxService _messageBoxService;
     private readonly IProductService _productService;
+    private readonly IEventAggregator _eventAggregator;
+    private ProductModel? _actualProduct;
+
+    public DelegateCommand AddProductToCartCommand { get; }
 
     public ProductPanelViewModel(
         IMessageBoxService messageBoxService,
-        IProductService productService
+        IProductService productService,
+        IEventAggregator eventAggregator
     )
     {
         _messageBoxService = messageBoxService;
         _productService = productService;
+        _eventAggregator = eventAggregator;
         _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
 
         _timer.Tick += async (_, _) =>
@@ -29,6 +37,32 @@ public class ProductPanelViewModel : BindableBase
 
             await SearchProduct();
         };
+
+        AddProductToCartCommand = new DelegateCommand(AddProductToCart, CanAddProductToCart);
+    }
+
+    private bool CanAddProductToCart()
+    {
+        return _actualProduct != null
+            && double.TryParse(_price, out _)
+            && double.TryParse(_total, out _);
+    }
+
+    private void AddProductToCart()
+    {
+        _eventAggregator
+            .GetEvent<CartProductAdded>()
+            .Publish(
+                new CartProductModel
+                {
+                    Id = _actualProduct!.Id,
+                    Name = _name,
+                    BarCode = _actualProduct!.BarCode,
+                    Price = double.Parse(_price),
+                    Total = double.Parse(_total),
+                    Quantity = _quantity,
+                }
+            );
     }
 
     private double _quantity = 1.0;
@@ -163,6 +197,7 @@ public class ProductPanelViewModel : BindableBase
     }
 
     private string _name = string.Empty;
+
     public string Name
     {
         get => _name;
@@ -173,14 +208,14 @@ public class ProductPanelViewModel : BindableBase
     {
         try
         {
-            var result = (
+            _actualProduct = (
                 await _productService.Find(
                     _idBarCode,
                     _idBarCode.Length >= 13 ? FindStrategy.BarCode : FindStrategy.Id
                 )
             ).FirstOrDefault();
 
-            if (result == null)
+            if (_actualProduct == null)
             {
                 Name = string.Empty;
                 Price = string.Empty;
@@ -189,8 +224,8 @@ public class ProductPanelViewModel : BindableBase
             }
             else
             {
-                Name = result.Name;
-                Price = result.Price.ToString(CultureInfo.CurrentCulture);
+                Name = _actualProduct.Name;
+                Price = _actualProduct.Price.ToString(CultureInfo.CurrentCulture);
                 Discount = string.Empty;
             }
         }
