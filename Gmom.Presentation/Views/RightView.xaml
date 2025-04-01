@@ -8,7 +8,7 @@
             <RowDefinition Height="16" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="16" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <local:CustomerPanelView
@@ -16,6 +16,6 @@
             Grid.Row="1"
             Margin="0,0,16,0" />
 
-        <local:CartView Grid.Row="3" />
+        <local:CartView Grid.Row="3" Margin="0,0,16,0" />
     </Grid>
 </UserControl>
