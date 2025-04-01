@@ -63,6 +63,12 @@ public class ProductPanelViewModel : BindableBase
                     Quantity = _quantity,
                 }
             );
+        
+        Name = string.Empty;
+        QuantityVersusProduct = string.Empty;
+        Price = string.Empty;
+        Discount = string.Empty;
+        Total = string.Empty;
     }
 
     private double _quantity = 1.0;
@@ -102,7 +108,11 @@ public class ProductPanelViewModel : BindableBase
     private void SplitQuantityAndProduct(string value)
     {
         if (value.IsNullOrWhiteSpace())
+        {
+            _quantity = 0.0;
+            _idBarCode = string.Empty;
             return;
+        }
 
         var values = value.Split('*', 2).Select(it => it.Trim()).ToList();
 
